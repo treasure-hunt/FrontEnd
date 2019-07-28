@@ -5,7 +5,8 @@ body{
 
 // APP COMPONENT
 .app{
-
+  display: flex;
+  flex-direction: row;
 }
 
 
@@ -13,6 +14,17 @@ body{
 .canvasWrapper{
   
   canvas{
-    border: 1px solid black;
+    border: 1px solid black; 
   }
+}
+
+// MAPINFO 
+
+.mapInfoWrapper{
+  position: fixed;
+  top:0;
+  right:1%;
+  height:100vh;
+  border: 1px solid black;
+  width:28%;
 }
