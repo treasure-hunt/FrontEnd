@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.scss'
-import Canvas from "./Canvas"
+import Canvas from "./Canvas/Canvas"
+import MapInfo from "./Map/MapInfo"
 
 export class App extends Component {
   state = {
@@ -13,6 +14,7 @@ export class App extends Component {
     return (
       <div className="App">
        <Canvas/>
+       <MapInfo/>
       </div>
     )
   }

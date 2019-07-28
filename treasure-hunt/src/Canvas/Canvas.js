@@ -10,16 +10,8 @@ export class Canvas extends Component {
       }
     
     componentDidMount() {
-
-        const canvas = this.refs.canvas
-        const c = canvas.getContext("2d")
-        window.addEventListener('resize', this.canvasResize())
-        for(let i = 7; i < this.state.width -1; i+=15){
-            for(let j = 12; j < this.state.height; j+=15){
-                this.circleRoom(c, i, j)
-            }    
-         }   
-      }
+        this.dotSetup()    
+    }
     
     componentWillUnmount() {
         window.removeEventListener("resize", this.updateDimensions);
@@ -32,7 +24,19 @@ export class Canvas extends Component {
         })
     }
 
-    circleRoom = (c, x, y) => {
+    dotSetup = () => {
+        let dotSpacing = 15
+        const canvas = this.refs.canvas
+        const c = canvas.getContext("2d")
+        window.addEventListener('resize', this.canvasResize())
+        for(let i = dotSpacing; i < this.state.width - dotSpacing; i+=dotSpacing){
+            for(let j = dotSpacing; j < this.state.height - dotSpacing; j+=dotSpacing){
+                this.dotRoom(c, i, j)
+            }    
+         }   
+    }
+
+    dotRoom = (c, x, y) => {
         c.beginPath()
         c.arc(x, y, 5, 0, Math.PI * 2, false)
         c.fill()
