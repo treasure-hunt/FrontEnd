@@ -14,7 +14,7 @@ export class Canvas extends Component {
     }
     
     componentWillUnmount() {
-        window.removeEventListener("resize", this.updateDimensions);
+        window.removeEventListener("resize", this.canvasResize);
     }
     
     canvasResize = () => {
@@ -37,7 +37,7 @@ export class Canvas extends Component {
     }
 
     dotRoom = (c, x, y) => {
-        let colorArray = ['blue', 'white', 'green']
+        let colorArray = ['blue', 'lightgrey', 'green']
         c.beginPath()
         c.arc(x, y, 5, 0, Math.PI * 2, false)
         if(0){
