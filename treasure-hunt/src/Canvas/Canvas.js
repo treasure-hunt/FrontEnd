@@ -37,8 +37,18 @@ export class Canvas extends Component {
     }
 
     dotRoom = (c, x, y) => {
+        let colorArray = ['blue', 'white', 'green']
         c.beginPath()
         c.arc(x, y, 5, 0, Math.PI * 2, false)
+        if(0){
+            c.fillStyle = colorArray[0]
+        }
+        else if(1){
+            c.fillStyle = colorArray[1]
+        }
+        else if(2){
+            c.fillStyle = colorArray[2]
+        }
         c.fill()
     }
     render() {
