@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import './App.scss'
 import { withRouter, Switch } from "react-router-dom";
-import Main from "./Map/Main"
-import Login from "./Login/Login"
+import MapView from "./Map/MapView"
+import LoginView from "./Login/LoginView"
 import authenticate from './Login/authenticate'
 
 
@@ -12,15 +12,15 @@ export class App extends Component {
     return (
       <div className="App">
         <Switch>
-          <Main/>
-          {/* <Auth/> */}
+          {/* <Main/> */}
+          <Auth/>
         </Switch>
       </div>
     )
   }
 }
 
-const Auth = withRouter(authenticate(Main)(Login));
+const Auth = withRouter(authenticate(MapView)(LoginView));
 
 export default App
 

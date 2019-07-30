@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-const url = "";
+const url = "https://lambda-treasure-hunt.herokuapp.com/api/adv/";
 
 const authenticate = App => Login => 
     class extends React.Component{
@@ -15,7 +15,18 @@ const authenticate = App => Login =>
         }
 
         componentDidMount(){
-
+            if(localStorage.getItem('userdata')){
+                const userdata = JSON.parse(localStorage.getItem('userdata'));
+                axios
+                    .get(`${url}init/`, 
+                        {token: userdata.token})
+                    .then(res => {
+                        res.data ? this.setState({ 
+                            loggedIn: true
+                        }) : localStorage.clear();
+                })  .catch(error => 
+                        console.log(error));
+            }
         }
 
         handleChanges = event => {
@@ -27,7 +38,7 @@ const authenticate = App => Login =>
         //requires name and token
         signIn = event => {
             event.persist();
-            return axios.get('https://lambda-treasure-hunt.herokuapp.com/api/adv/init/',
+            return axios.get(`${url}init/`,
             {headers:{
               'Authorization': `Token ${this.state.token}`,
             }})
@@ -46,19 +57,19 @@ const authenticate = App => Login =>
               })
         }
 
-        // signOut = event => {
-        //     event.preventDefault();
-        //     window.localStorage.clear();
-        //     this.setState({
-        //         loggedIn: false
-        //     })
-        //     this.props.history.push('/login');
-        // }
+        signOut = event => {
+            event.preventDefault();
+            window.localStorage.clear();
+            this.setState({
+                loggedIn: false
+            })
+            this.props.history.push('/login');
+        }
 
         render(){
             if(this.state.loggedIn){
                 return <App 
-                // signOut = {this.signOut}
+                signOut = {this.signOut}
                 loggedIn = {this.state.loggedIn}
                 />
             } else {
