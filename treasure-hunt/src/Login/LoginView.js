@@ -6,7 +6,13 @@ export class loginView extends Component {
     render() {
         return (
             <div>
-                <Route exact path='/login' component = {Login}/>
+            <Route exact path='/login' render = {(...props) => (<Login
+                handleChanges = {this.props.handleChanges}
+                signIn = {this.props.signIn}
+                token = {this.props.token}
+                name = {this.props.name}
+                {...props}
+            />)}/>
             </div>
         )
     }

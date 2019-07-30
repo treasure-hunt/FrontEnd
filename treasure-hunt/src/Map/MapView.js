@@ -7,7 +7,9 @@ export class MapView extends Component {
     render() {
         return (
             <div>
-                <Route path="/" component={Main} />
+                <Route path="/"
+                exact
+                render={(...props) => <Main logOff={this.props.logOff} {...props} />} />
             </div>
         )
     }
