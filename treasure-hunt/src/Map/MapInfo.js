@@ -11,8 +11,28 @@ export class MapInfo extends Component {
     // }
     render() {
         const dir = ["n","s","e","w"]
+        // let items = this.props.roomData.items; 
+        let players = this.props.roomData.players;
+        console.log(players)
         return (
             <div className="mapInfoWrapper">
+                    {/* {console.log(players.players)} */}
+                    <div>
+                        <h1>Room {this.props.roomData.room_id}</h1>
+                        <h1>{this.props.roomData.coordinates}</h1>
+                    </div>
+                    <div className='title-description'>
+                        <h3>{this.props.roomData.title}</h3>
+                        <p>{this.props.roomData.description}</p>
+                        <div className='roomData-items'>
+                        <h3>Items</h3>
+                        <p>There are {this.props.roomData.items} items in this room</p>
+                        </div>
+                        <div className='roomData-players'>
+                            <h3>Players</h3>
+                            <p>There are {this.props.roomData.players} players in this room</p>
+                        </div>
+                    </div>
                 <button onClick={() =>{this.props.movePlayer(dir[0])}}>Move North</button>
                 <button onClick={() =>{this.props.movePlayer(dir[1])}}>Move South</button>
                 <button onClick={() =>{this.props.movePlayer(dir[2])}}>Move East</button>
