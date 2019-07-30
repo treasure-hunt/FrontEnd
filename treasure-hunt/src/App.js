@@ -12,7 +12,8 @@ export class App extends Component {
     return (
       <div className="App">
         <Switch>
-          <Auth/>
+          <Main/>
+          {/* <Auth/> */}
         </Switch>
       </div>
     )
