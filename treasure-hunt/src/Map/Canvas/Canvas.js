@@ -1,17 +1,25 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 export class Canvas extends Component {
     constructor() {
         super();
         this.state = {
           width: window.innerWidth * .7,
-          height: window.innerHeight
+          height: window.innerHeight,
+          rooms:[],
         }
       }
     
-    componentDidMount() {
-        this.dotSetup()    
+    componentDidMount = () => {
         this.canvasResize()
+        this.getRooms()
+        this.dotSetup()    
+    }
+    componentDidUpdate = (prevProps, prevState) => {
+        if(prevState.rooms.length != this.state.rooms.length){
+            this.dotSetup()
+        }
     }
     
     componentWillUnmount() {
@@ -26,21 +34,39 @@ export class Canvas extends Component {
     }
 
     dotSetup = () => {
-        let dotSpacing = 15
         const canvas = this.refs.canvas
         const c = canvas.getContext("2d")
         window.addEventListener('resize', this.canvasResize())
-        for(let i = dotSpacing; i < this.state.width - dotSpacing; i+=dotSpacing){
-            for(let j = dotSpacing; j < this.state.height - dotSpacing; j+=dotSpacing){
-                this.dotRoom(c, i, j)
-            }    
-         }   
+        this.state.rooms.forEach(room => {
+            this.dotRoom(c, room.coords.x, room.coords.y)
+        });
+           
+    }
+
+    getRooms = () => {
+        axios.get(`https://treasure-hunt-legend.herokuapp.com/rooms`,{},
+            {headers:{
+            'Authorization': `Token ${localStorage.token}`,
+            }})
+        .then(res => {
+            console.log(res.data[0])
+            this.setState({
+                rooms: res.data
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
 
     dotRoom = (c, x, y) => {
-        let colorArray = ['blue', 'lightgrey', 'green']
+        let roomHeight = this.state.height / 120
+        let roomWidth = this.state.width / 120
+        let roomX = x * roomWidth
+        let roomY = y * roomHeight
+        let colorArray = ['blue', 'grey', 'green']
         c.beginPath()
-        c.arc(x, y, 5, 0, Math.PI * 2, false)
+        c.arc(roomX, roomY, roomWidth/2, 0, Math.PI * 2, false)
         if(0){
             c.fillStyle = colorArray[0]
         }
@@ -52,6 +78,7 @@ export class Canvas extends Component {
         }
         c.fill()
     }
+    
     render() {
         return (
             <div className="canvasWrapper">
