@@ -3,6 +3,12 @@ import Timer from "react-compound-timer"
 
 export class MapInfo extends Component {
     
+    // componentDidMount() {
+    //     this.interval = setInterval(() => this.setState({ coolDown: this.props.coolDown }), 1000);
+    // }
+    // componentWillUnmount() {
+    //     clearInterval(this.interval);
+    // }
     render() {
         const dir = ["n","s","e","w"]
         return (
@@ -11,10 +17,11 @@ export class MapInfo extends Component {
                 <button onClick={() =>{this.props.movePlayer(dir[1])}}>Move South</button>
                 <button onClick={() =>{this.props.movePlayer(dir[2])}}>Move East</button>
                 <button onClick={() =>{this.props.movePlayer(dir[3])}}>Move West</button>
-                <h1>{this.props.exitList}</h1>
-                <Timer
-                initialTime={65000}
-                direction="backward"
+                <h1>Pathways: {this.props.exitList}</h1>
+                <h1>Cool Down: {this.props.coolDown}</h1>
+        {/* <Timer
+            initialTime={65000}
+            direction="backward"
         >
         {({ start, resume, pause, stop, reset }) => (
             <React.Fragment>
@@ -31,7 +38,7 @@ export class MapInfo extends Component {
                 </div>
             </React.Fragment>
         )}
-        </Timer>
+        </Timer> */}
             </div>
         )
     }

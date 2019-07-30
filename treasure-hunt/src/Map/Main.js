@@ -6,7 +6,8 @@ import token from "../tokens"
 
 export class App extends Component {
   state = {
-    exitList:[]
+    exitList:[],
+    coolDown:0
   }
 
   componentDidMount = () => {
@@ -22,7 +23,8 @@ export class App extends Component {
         .then(res => {
             console.log(res.data)
             this.setState({
-            exitList:res.data.exits
+            exitList:res.data.exits,
+            coolDown:res.data.cooldown
             })
         })
         .catch(err => {
@@ -54,6 +56,7 @@ export class App extends Component {
       <div className="App">
        <Canvas/>
        <MapInfo
+        coolDown = {this.state.coolDown}
         exitList = {this.state.exitList}
         movePlayer={this.movePlayer}
        />
