@@ -11,9 +11,6 @@ export class MapInfo extends Component {
     // }
     render() {
         const dir = ["n","s","e","w"]
-        // let items = this.props.roomData.items; 
-        let players = this.props.players;
-        console.log(players)
         return (
             <div className="mapInfoWrapper">
                     {/* {console.log(players.players)} */}
