@@ -13,22 +13,23 @@ export class App extends Component {
     this.playerRoom()
   }
 
-
   playerRoom = () => {   
-    axios.get('https://lambda-treasure-hunt.herokuapp.com/api/adv/init/',
-    {headers:{
-      'Authorization': `Token ${token.terrell}`,
-    }})
-      .then(res => {
-        console.log(res.data)
-        this.setState({
-          exitList:res.data.exits
+    setTimeout(() => {
+        axios.get('https://lambda-treasure-hunt.herokuapp.com/api/adv/init/',
+        {headers:{
+        'Authorization': `Token ${localStorage.token}`,
+        }})
+        .then(res => {
+            console.log(res.data)
+            this.setState({
+            exitList:res.data.exits
+            })
         })
-      })
-      .catch(err => {
-        console.log(err)
-        
-      })
+        .catch(err => {
+            console.log(err)
+            
+        })
+    },1010)
   }
 
   movePlayer = (direction) => {   
@@ -49,7 +50,6 @@ export class App extends Component {
   }
 
   render() {
-    console.log(token.terrell)
     return (
       <div className="App">
        <Canvas/>

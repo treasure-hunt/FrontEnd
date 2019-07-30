@@ -11,6 +11,7 @@ export class Canvas extends Component {
     
     componentDidMount() {
         this.dotSetup()    
+        this.canvasResize()
     }
     
     componentWillUnmount() {
