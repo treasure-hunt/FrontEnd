@@ -9,6 +9,8 @@ export class App extends Component {
     exitList:[],
     coolDown:0,
     roomData: [],
+    players: [],
+    items: []
   }
 
   componentDidMount = () => {
@@ -26,7 +28,9 @@ export class App extends Component {
             this.setState({
             exitList:res.data.exits,
             coolDown:res.data.cooldown,
-            roomData: res.data
+            roomData: res.data,
+            players: res.data.players,
+            items: res.data.items
             })
         })
         .catch(err => {
@@ -63,6 +67,8 @@ export class App extends Component {
         exitList = {this.state.exitList}
         roomData = {this.state.roomData}
         movePlayer={this.movePlayer}
+        players={this.state.players}
+        items={this.state.items}
        />
       </div>
     )

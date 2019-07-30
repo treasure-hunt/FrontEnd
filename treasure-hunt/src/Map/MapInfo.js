@@ -12,7 +12,7 @@ export class MapInfo extends Component {
     render() {
         const dir = ["n","s","e","w"]
         // let items = this.props.roomData.items; 
-        let players = this.props.roomData.players;
+        let players = this.props.players;
         console.log(players)
         return (
             <div className="mapInfoWrapper">
@@ -26,17 +26,18 @@ export class MapInfo extends Component {
                         <p>{this.props.roomData.description}</p>
                         <div className='roomData-items'>
                         <h3>Items</h3>
-                        <p>There are {this.props.roomData.items} items in this room</p>
+                        <p>There are {this.props.items.length} items in this room</p>
                         </div>
                         <div className='roomData-players'>
                             <h3>Players</h3>
-                            <p>There are {this.props.roomData.players} players in this room</p>
+                            <p>There are {this.props.players.length} players in this room</p>
                         </div>
                     </div>
-                <button onClick={() =>{this.props.movePlayer(dir[0])}}>Move North</button>
-                <button onClick={() =>{this.props.movePlayer(dir[1])}}>Move South</button>
-                <button onClick={() =>{this.props.movePlayer(dir[2])}}>Move East</button>
-                <button onClick={() =>{this.props.movePlayer(dir[3])}}>Move West</button>
+             
+                <button className={this.props.exitList.includes('n') ? 'availableButton' : 'regularButton'} onClick={() =>{this.props.movePlayer(dir[0])}}>N</button>
+                <button className={this.props.exitList.includes('s') ? 'availableButton' : 'regularButton'} onClick={() =>{this.props.movePlayer(dir[1])}}>S</button>
+                <button className={this.props.exitList.includes('e') ? 'availableButton' : 'regularButton'} onClick={() =>{this.props.movePlayer(dir[2])}}>E</button>
+                <button className={this.props.exitList.includes('w') ? 'availableButton' : 'regularButton'} onClick={() =>{this.props.movePlayer(dir[3])}}>W</button>
                 <h1>Pathways: {this.props.exitList}</h1>
                 <h1>Cool Down: {this.props.coolDown}</h1>
         {/* <Timer

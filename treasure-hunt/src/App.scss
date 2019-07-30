@@ -85,6 +85,7 @@ body{
 // MAPINFO 
 
 .mapInfoWrapper{
+ 
   position: fixed;
   top:0;
   right:1%;
@@ -92,3 +93,28 @@ body{
   border: 1px solid black;
   width:28%;
 }
+
+.availableButton {
+  background-color: green;
+  width: 40px;
+  height: 50px;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover{
+    background-color: lightgreen;
+  }
+}
+
+.regularButton {
+  background-color: gray;
+  width: 40px;
+  height: 50px;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover{
+    background-color: black;
+  }
+}
+
