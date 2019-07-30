@@ -10,6 +10,10 @@ export class Login extends Component {
     render() {
         return (
             <div className="loginWrapper">
+            <div className="loginTitleContainer">    
+                <h4>Welcome to</h4>
+                <h1>Treasure Hunt</h1>
+            </div>
                 <form type='submit'>
                     <div className='inputContainer'>
                         <input
@@ -122,7 +126,7 @@ const c = canvas.getContext('2d');
 
       if (this.r < 0) this.r = 0 // Thank you Akash for the conditional!
 
-      this.timeToLive -= 0.1
+      this.timeToLive -= 0.01
   }
 
 
