@@ -7,7 +7,10 @@ import token from "../tokens"
 export class App extends Component {
   state = {
     exitList:[],
-    coolDown:0
+    coolDown:0,
+    roomData: [],
+    players: [],
+    items: []
   }
 
   componentDidMount = () => {
@@ -24,7 +27,10 @@ export class App extends Component {
             console.log(res.data)
             this.setState({
             exitList:res.data.exits,
-            coolDown:res.data.cooldown
+            coolDown:res.data.cooldown,
+            roomData: res.data,
+            players: res.data.players,
+            items: res.data.items
             })
         })
         .catch(err => {
@@ -35,19 +41,20 @@ export class App extends Component {
   }
 
   movePlayer = (direction) => {   
-    axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/move/', {"direction" : `${direction}`},
+    
+    axios.post(`https://treasure-hunt-legend.herokuapp.com/traverse/${direction}`,{},
     {headers:{
-      'Authorization': `Token ${token.max}`,
+      'Authorization': `Token ${localStorage.token}`,
     }})
       .then(res => {
         console.log(res.data)
         this.setState({
-          exitList:res.data.exits
+          exitList:res.data.exits,
+          roomData: res.data
         })
       })
       .catch(err => {
         console.log(err)
-        
       })
   }
 
@@ -58,7 +65,10 @@ export class App extends Component {
        <MapInfo
         coolDown = {this.state.coolDown}
         exitList = {this.state.exitList}
+        roomData = {this.state.roomData}
         movePlayer={this.movePlayer}
+        players={this.state.players}
+        items={this.state.items}
        />
       </div>
     )
