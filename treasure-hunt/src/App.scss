@@ -9,6 +9,53 @@ body{
   flex-direction: row;
 }
 
+// LOGIN COMPONENT
+.loginWrapper{
+
+  form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top:15%;
+
+    .inputContainer{
+      display: flex;
+      align-items: center;
+      margin: 1rem;
+      
+      h4{
+        color:white;
+        margin-right:2rem;
+      }
+      input{
+        height: 3rem;
+        width:12rem;
+        border-radius: 10px;
+        font-size: 1rem;
+      }
+    }
+  }
+  .loginButtonContainer{
+    display: flex;
+    justify-content: center;
+    button{
+      
+      margin-top:2rem;
+      width:5rem;
+      height:2rem;
+      border-radius:10px;
+      font-size: .9rem;
+  
+    }
+  }
+  canvas{
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: -1;
+  }
+}
+
 
 // CANVAS COMPONENT
 .canvasWrapper{

@@ -13,15 +13,9 @@ const authenticate = App => Login =>
                 loggedIn: false
             })
         }
-        
+
         componentDidMount(){
-            
-            if(localStorage.getItem('userdata')){
-                const userdata = JSON.parse(localStorage.getItem('userdata'));
-                axios.post(`${url}api/users/checkauth`, {token: userdata.token}).then(res => {
-                    res.data ? this.setState({ loggedIn: true}) : localStorage.clear();
-                }).catch(error => console.log(error));
-            }
+
         }
 
         handleChanges = event => {
@@ -40,6 +34,7 @@ const authenticate = App => Login =>
               .then(res => {
                 console.log(res.data)
                 if(res.status == 200){
+                    localStorage.setItem('token', this.state.token)
                     this.setState({
                         loggedIn: true
                     })
@@ -51,19 +46,19 @@ const authenticate = App => Login =>
               })
         }
 
-        signOut = event => {
-            event.preventDefault();
-            window.localStorage.clear();
-            this.setState({
-                loggedIn: false
-            })
-            this.props.history.push('/login');
-
-        }
+        // signOut = event => {
+        //     event.preventDefault();
+        //     window.localStorage.clear();
+        //     this.setState({
+        //         loggedIn: false
+        //     })
+        //     this.props.history.push('/login');
+        // }
 
         render(){
             if(this.state.loggedIn){
-                return <App signOut = {this.signOut}
+                return <App 
+                // signOut = {this.signOut}
                 loggedIn = {this.state.loggedIn}
                 />
             } else {
