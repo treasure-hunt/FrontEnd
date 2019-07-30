@@ -13,12 +13,14 @@ export class MapInfo extends Component {
         const dir = ["n","s","e","w"]
         return (
             <div className="mapInfoWrapper">
-                <button onClick={() =>{this.props.movePlayer(dir[0])}}>Move North</button>
-                <button onClick={() =>{this.props.movePlayer(dir[1])}}>Move South</button>
-                <button onClick={() =>{this.props.movePlayer(dir[2])}}>Move East</button>
-                <button onClick={() =>{this.props.movePlayer(dir[3])}}>Move West</button>
                 <h1>Pathways: {this.props.exitList}</h1>
                 <h1>Cool Down: {this.props.coolDown}</h1>
+             
+                <button className={this.props.exitList.includes('n') ? 'availableButton' : 'regularButton'} onClick={() =>{this.props.movePlayer(dir[0])}}>N</button>
+                <button className={this.props.exitList.includes('s') ? 'availableButton' : 'regularButton'} onClick={() =>{this.props.movePlayer(dir[1])}}>S</button>
+                <button className={this.props.exitList.includes('e') ? 'availableButton' : 'regularButton'} onClick={() =>{this.props.movePlayer(dir[2])}}>E</button>
+                <button className={this.props.exitList.includes('w') ? 'availableButton' : 'regularButton'} onClick={() =>{this.props.movePlayer(dir[3])}}>W</button>
+            
         {/* <Timer
             initialTime={65000}
             direction="backward"

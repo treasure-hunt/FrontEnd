@@ -37,7 +37,7 @@ export class App extends Component {
   movePlayer = (direction) => {   
     axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/move/', {"direction" : `${direction}`},
     {headers:{
-      'Authorization': `Token ${token.terrell}`,
+      'Authorization': `Token ${token.max}`,
     }})
       .then(res => {
         console.log(res.data)
