@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import loginDesign from './loginDesign'
 
 export class Login extends Component {
 

@@ -5,7 +5,7 @@ export class Canvas extends Component {
     constructor() {
         super();
         this.state = {
-          width: window.innerWidth * .7,
+          width: window.innerWidth,
           height: window.innerHeight,
           rooms:[],
         }
@@ -13,6 +13,7 @@ export class Canvas extends Component {
     
     componentDidMount = () => {
         this.canvasResize()
+        // this.updateDimensions()
         this.getRooms()
         this.dotSetup()    
     }
@@ -25,6 +26,14 @@ export class Canvas extends Component {
     componentWillUnmount() {
         window.removeEventListener("resize", this.canvasResize);
     }
+
+    // updateDimensions = () => {
+    //     console.log("Width is:"+this.state.width);
+    //     console.log("Height is:"+this.state.height);
+    //     let width = this.refs.canvas.width;
+    //     let height= this.refs.canvas.height;
+    //     this.setState({width:width,height:height});
+    //   }
     
     canvasResize = () => {
         this.setState({
@@ -68,7 +77,7 @@ export class Canvas extends Component {
         let colorArray = ['blue', 'grey', 'green']
         c.beginPath()
         c.arc(roomX, roomY, roomWidth/2, 0, Math.PI * 2, false)
-        if(0){
+        if(x === 59 && y === 60){
             c.fillStyle = colorArray[0]
         }
         else if(1){
@@ -83,7 +92,7 @@ export class Canvas extends Component {
     render() {
         return (
             <div className="canvasWrapper">
-                <canvas ref="canvas" width={this.state.width} height={this.state.height}/>
+                <canvas ref="canvas" width={this.state.width} height={this.state.height} style={{ width: '70%', height: '100%' }}/>
             </div>
         )
     }

@@ -3,7 +3,6 @@ import Canvas from "./Canvas/Canvas"
 import MapInfo from "./MapInfo"
 import axios from 'axios'
 
-
 export class App extends Component {
   state = {
     exitList:[],
@@ -11,7 +10,7 @@ export class App extends Component {
     roomData: {items:[]},
     players: [],
     items: [],
-
+    moving: false,
     currentPos: [],
 
     playerStats: []
@@ -135,12 +134,49 @@ export class App extends Component {
       })
   }
 
+  startTraverse = () => {   
+    
+    axios.post('https://treasure-hunt-legend.herokuapp.com/autotraverse',{},
+    {headers:{
+      'Authorization': `Token ${localStorage.token}`,
+    }})
+      .then(res => {
+        console.log(res.data)
+        this.setState({
+          moving: true
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  stopTraverse = () => {   
+    
+    axios.delete('https://treasure-hunt-legend.herokuapp.com/autotraverse',
+    {headers:{
+      'Authorization': `Token ${localStorage.token}`,
+    }},{})
+      .then(res => {
+        console.log(res.data)
+        this.setState({
+          moving: false
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   render() {
     // console.log(this.state.playerStats)
     return (
-      <div className="App">
+      <div className="Main">
        <Canvas/>
        <MapInfo
+        moving = {this.state.moving}
+        startTraverse = {this.startTraverse}
+        stopTraverse = {this.stopTraverse}
         playerStats = {this.playerStats}
         takeItem = {this.takeItem}
         coolDown = {this.state.coolDown}

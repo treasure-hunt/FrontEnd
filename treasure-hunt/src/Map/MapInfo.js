@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 
 export class MapInfo extends Component {
-    
+
     // componentDidMount() {
     //     this.interval = setInterval(() => this.setState({ coolDown: this.props.coolDown }), 1000);
     // }
     // componentWillUnmount() {
     //     clearInterval(this.interval);
     // }
+
+
     render() {
         const dir = ["n","s","e","w"]
         return (
@@ -33,12 +35,17 @@ export class MapInfo extends Component {
                     </div>
                 </div>
                 <div className="directionButtons">
-                    <button className={this.props.exitList.includes(dir[0]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[0])}}>N</button>
-                    <button className={this.props.exitList.includes(dir[1]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[1])}}>S</button>
-                    <button className={this.props.exitList.includes(dir[2]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[2])}}>E</button>
-                    <button className={this.props.exitList.includes(dir[3]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[3])}}>W</button>
+                    <button disabled={this.props.moving} className={this.props.exitList.includes(dir[0]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[0])}}>N</button>
+                    <button disabled={this.props.moving} className={this.props.exitList.includes(dir[1]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[1])}}>S</button>
+                    <button disabled={this.props.moving} className={this.props.exitList.includes(dir[2]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[2])}}>E</button>
+                    <button disabled={this.props.moving} className={this.props.exitList.includes(dir[3]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[3])}}>W</button>
                 </div>
-                <button onClick={() => this.props.playerStats()}>Stats</button>
+                <button disabled={this.props.moving} onClick={() => this.props.playerStats()}>Stats</button>
+                {this.props.moving ? <button 
+                onClick={this.props.stopTraverse}
+                >Stop Traverse</button> : <button 
+                onClick={this.props.startTraverse}
+                >Start Traverse</button>}
             </div>
         )
     }
