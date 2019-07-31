@@ -8,6 +8,21 @@ export class MapInfo extends Component {
     // componentWillUnmount() {
     //     clearInterval(this.interval);
     // }
+
+    alert = () => {
+        alert("You are not in the shop")
+    }
+
+    alertName = () => {
+        alert("You are not at Pirate Ry's")
+    }
+
+    alertPray = () => {
+        alert("You are not at the Shrine")
+    }
+    
+
+
     render() {
         const dir = ["n","s","e","w"]
         return (
@@ -23,7 +38,10 @@ export class MapInfo extends Component {
                     <h3>Items</h3>
                     <p>There are {this.props.items.length} items in this room</p>
                     {this.props.items.map(item => {
-                        return <button onClick = {() => this.props.takeItem(item)}>Grab: {item}</button>  
+                        return <>
+                        <button onClick = {() => this.props.takeItem(item)}>Grab: {item}</button> 
+                         <button onClick = {() => this.props.dropItem(item)}>Drop: {item}</button>
+                        </>
                         })
                     }
                     </div>
@@ -39,6 +57,19 @@ export class MapInfo extends Component {
                     <button className={this.props.exitList.includes(dir[3]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[3])}}>W</button>
                 </div>
                 <button onClick={() => this.props.playerStats()}>Stats</button>
+                {this.props.roomData.title === "Shop" ? <button onClick={() => this.props.sellTreasure()}>Sell Treasure</button> : <button onClick={this.alert}>Sell Treasure</button>}
+                {this.props.roomData.title === "Pirate Ry's" ? 
+                <form> 
+                    <input
+                    type = "text"
+                    name = "name"
+                    onChange = {this.props.handleChanges}
+                    placeholder = "Enter a Name..."
+                    />
+                <button onClick={() => this.props.changeName()}>Change Name</button> 
+                </form>
+                : <button onClick={this.alertName}>Change Name</button>}
+                {this.props.roomData.title === "Shrine" ? <button onClick={() => this.props.pray()}>Pray</button> : <button onClick={this.alertPray}>Pray</button>}
             </div>
         )
     }
