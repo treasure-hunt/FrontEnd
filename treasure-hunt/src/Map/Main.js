@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Canvas from "./Canvas/Canvas"
 import MapInfo from "./MapInfo"
 import axios from 'axios'
-import token from "../tokens"
+
 
 export class App extends Component {
   state = {
