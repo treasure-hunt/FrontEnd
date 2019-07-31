@@ -8,14 +8,33 @@ export class App extends Component {
   state = {
     exitList:[],
     coolDown:0,
-    roomData: [],
+    roomData: {items:[]},
     players: [],
-    items: []
+    items: [],
+    currentPos: []
   }
 
   componentDidMount = () => {
     this.playerRoom()
+    // this.playerPos()
   }
+
+  // playerPos = (id) => {   
+    
+  //   axios.get(`https://treasure-hunt-legend.herokuapp.com/rooms/${63}`,
+  //   {headers:{
+  //     'Authorization': `Token ${localStorage.token}`,
+  //   }})
+  //     .then(res => {
+  //       console.log(res.data)
+  //       this.setState({
+  //         currentPos:res.data
+  //       })
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //     })
+  // }
 
   playerRoom = () => {   
     setTimeout(() => {
@@ -38,6 +57,25 @@ export class App extends Component {
             
         })
     },1010)
+  }
+
+  takeItem = (item) => {    
+    axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/take/',{
+      "name": item
+    },
+    {headers:{
+      'Authorization': `Token ${localStorage.token}`,
+    }})
+      .then(res => {
+        console.log(res.data)
+        this.setState({
+          exitList:res.data.exits,
+          roomData: res.data
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   movePlayer = (direction) => {   
@@ -63,6 +101,7 @@ export class App extends Component {
       <div className="App">
        <Canvas/>
        <MapInfo
+        takeItem = {this.takeItem}
         coolDown = {this.state.coolDown}
         exitList = {this.state.exitList}
         roomData = {this.state.roomData}

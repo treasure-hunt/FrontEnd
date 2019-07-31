@@ -38,6 +38,7 @@ export class Canvas extends Component {
         const c = canvas.getContext("2d")
         window.addEventListener('resize', this.canvasResize())
         this.state.rooms.forEach(room => {
+            room.coords.y = 120 - room.coords.y
             this.dotRoom(c, room.coords.x, room.coords.y)
         });
            
@@ -78,7 +79,7 @@ export class Canvas extends Component {
         }
         c.fill()
     }
-    
+
     render() {
         return (
             <div className="canvasWrapper">
