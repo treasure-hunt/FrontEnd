@@ -13,7 +13,8 @@ export class App extends Component {
     moving: false,
     currentPos: [],
 
-    playerStats: []
+    playerStats: [],
+    name: ''
   }
 
   componentDidMount = () => {
@@ -162,11 +163,66 @@ export class App extends Component {
         this.setState({
           moving: false
         })
+        .catch(err => {
+          console.log(err)
+        })
+      })
+  }
+
+  sellTreasure = (item) => {   
+    
+    axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/sell/',{
+      "name": item
+    },
+    {headers:{
+      'Authorization': `Token ${localStorage.token}`,
+    }})
+      .then(res => {
+        console.log(res.data)
       })
       .catch(err => {
         console.log(err)
       })
   }
+
+  nameChange = (name) => {   
+    
+    axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/change_name/',{
+      "name": name
+    },
+    {headers:{
+      'Authorization': `Token ${localStorage.token}`,
+    }})
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  pray = () => {   
+    
+    axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/pray/',{
+    },
+    {headers:{
+      'Authorization': `Token ${localStorage.token}`,
+    }})
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  handleNameChange = (event) => {
+    this.setState({
+      name: event.target.value
+    })
+  }
+  
+
 
   render() {
     // console.log(this.state.playerStats)
@@ -179,12 +235,17 @@ export class App extends Component {
         stopTraverse = {this.stopTraverse}
         playerStats = {this.playerStats}
         takeItem = {this.takeItem}
+        dropItem = {this.dropItem}
         coolDown = {this.state.coolDown}
         exitList = {this.state.exitList}
         roomData = {this.state.roomData}
         movePlayer={this.movePlayer}
         players={this.state.players}
         items={this.state.items}
+        sellTreasure = {this.sellTreasure}
+        nameChange = {this.nameChange}
+        handleNameChange = {this.handleNameChange}
+        pray = {this.pray}
        />
       </div>
     )

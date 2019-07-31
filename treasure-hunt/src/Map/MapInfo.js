@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Blockchain from '../Blockchain/Blockchain.js'
 
 export class MapInfo extends Component {
 
@@ -8,6 +9,19 @@ export class MapInfo extends Component {
     // componentWillUnmount() {
     //     clearInterval(this.interval);
     // }
+
+    alert = () => {
+        alert("You are not in the shop")
+    }
+
+    alertName = () => {
+        alert("You are not at Pirate Ry's")
+    }
+
+    alertPray = () => {
+        alert("You are not at the Shrine")
+    }
+    
 
 
     render() {
@@ -25,7 +39,10 @@ export class MapInfo extends Component {
                     <h3>Items</h3>
                     <p>There are {this.props.items.length} items in this room</p>
                     {this.props.items.map(item => {
-                        return <button onClick = {() => this.props.takeItem(item)}>Grab: {item}</button>  
+                        return <>
+                        <button onClick = {() => this.props.takeItem(item)}>Grab: {item}</button> 
+                         <button onClick = {() => this.props.dropItem(item)}>Drop: {item}</button>
+                        </>
                         })
                     }
                     </div>
@@ -33,6 +50,9 @@ export class MapInfo extends Component {
                         <h3>Players</h3>
                         <p>There are {this.props.players.length} players in this room</p>
                     </div>
+                </div>
+                <div>
+                    <Blockchain /> 
                 </div>
                 <div className="directionButtons">
                     <button disabled={this.props.moving} className={this.props.exitList.includes(dir[0]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[0])}}>N</button>
@@ -46,6 +66,20 @@ export class MapInfo extends Component {
                 >Stop Traverse</button> : <button 
                 onClick={this.props.startTraverse}
                 >Start Traverse</button>}
+                <button onClick={() => this.props.playerStats()}>Stats</button>
+                {this.props.roomData.title === "Shop" ? <button onClick={() => this.props.sellTreasure()}>Sell Treasure</button> : <button onClick={this.alert}>Sell Treasure</button>}
+                {this.props.roomData.title === "Pirate Ry's" ? 
+                <form> 
+                    <input
+                    type = "text"
+                    name = "name"
+                    onChange = {this.props.handleChanges}
+                    placeholder = "Enter a Name..."
+                    />
+                <button onClick={() => this.props.changeName()}>Change Name</button> 
+                </form>
+                : <button onClick={this.alertName}>Change Name</button>}
+                {this.props.roomData.title === "Peak of Mt. Holloway" ? <button onClick={() => this.props.pray()}>Pray</button> : <button onClick={this.alertPray}>Pray</button>}
             </div>
         )
     }
