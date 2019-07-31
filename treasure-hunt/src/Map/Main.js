@@ -14,7 +14,8 @@ export class App extends Component {
 
     currentPos: [],
 
-    playerStats: []
+    playerStats: [],
+    name: ''
   }
 
   componentDidMount = () => {
@@ -154,7 +155,7 @@ export class App extends Component {
 
   sellTreasure = (item) => {   
     
-    axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/drop/',{
+    axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/sell/',{
       "name": item
     },
     {headers:{
@@ -166,6 +167,43 @@ export class App extends Component {
       .catch(err => {
         console.log(err)
       })
+  }
+
+  nameChange = (name) => {   
+    
+    axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/change_name/',{
+      "name": name
+    },
+    {headers:{
+      'Authorization': `Token ${localStorage.token}`,
+    }})
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  pray = () => {   
+    
+    axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/pray/',{
+    },
+    {headers:{
+      'Authorization': `Token ${localStorage.token}`,
+    }})
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  handleNameChange = (event) => {
+    this.setState({
+      name: event.target.value
+    })
   }
   
 
@@ -186,6 +224,9 @@ export class App extends Component {
         players={this.state.players}
         items={this.state.items}
         sellTreasure = {this.sellTreasure}
+        nameChange = {this.nameChange}
+        handleNameChange = {this.handleNameChange}
+        pray = {this.pray}
        />
       </div>
     )

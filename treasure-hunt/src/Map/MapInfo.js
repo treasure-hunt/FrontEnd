@@ -13,6 +13,15 @@ export class MapInfo extends Component {
         alert("You are not in the shop")
     }
 
+    alertName = () => {
+        alert("You are not at Pirate Ry's")
+    }
+
+    alertPray = () => {
+        alert("You are not at the Shrine")
+    }
+    
+
 
     render() {
         const dir = ["n","s","e","w"]
@@ -49,7 +58,18 @@ export class MapInfo extends Component {
                 </div>
                 <button onClick={() => this.props.playerStats()}>Stats</button>
                 {this.props.roomData.title === "Shop" ? <button onClick={() => this.props.sellTreasure()}>Sell Treasure</button> : <button onClick={this.alert}>Sell Treasure</button>}
-                
+                {this.props.roomData.title === "Pirate Ry's" ? 
+                <form> 
+                    <input
+                    type = "text"
+                    name = "name"
+                    onChange = {this.props.handleChanges}
+                    placeholder = "Enter a Name..."
+                    />
+                <button onClick={() => this.props.changeName()}>Change Name</button> 
+                </form>
+                : <button onClick={this.alertName}>Change Name</button>}
+                {this.props.roomData.title === "Shrine" ? <button onClick={() => this.props.pray()}>Pray</button> : <button onClick={this.alertPray}>Pray</button>}
             </div>
         )
     }
