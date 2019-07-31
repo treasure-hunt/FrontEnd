@@ -12,13 +12,9 @@ export class App extends Component {
  
   render() {
     return (
-      <div className="App">
-        <Switch>
-
-          <Main/>
-
-          {/* <Auth/> */}
-        </Switch>
+      <div className="app">
+          {/* <Main/> */}
+          <Auth/>
       </div>
     )
   }

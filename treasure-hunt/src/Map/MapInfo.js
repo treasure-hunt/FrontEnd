@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Blockchain from '../Blockchain/Blockchain.js'
 
 export class MapInfo extends Component {
-    
+
     // componentDidMount() {
     //     this.interval = setInterval(() => this.setState({ coolDown: this.props.coolDown }), 1000);
     // }
@@ -55,11 +55,17 @@ export class MapInfo extends Component {
                     <Blockchain /> 
                 </div>
                 <div className="directionButtons">
-                    <button className={this.props.exitList.includes(dir[0]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[0])}}>N</button>
-                    <button className={this.props.exitList.includes(dir[1]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[1])}}>S</button>
-                    <button className={this.props.exitList.includes(dir[2]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[2])}}>E</button>
-                    <button className={this.props.exitList.includes(dir[3]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[3])}}>W</button>
+                    <button disabled={this.props.moving} className={this.props.exitList.includes(dir[0]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[0])}}>N</button>
+                    <button disabled={this.props.moving} className={this.props.exitList.includes(dir[1]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[1])}}>S</button>
+                    <button disabled={this.props.moving} className={this.props.exitList.includes(dir[2]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[2])}}>E</button>
+                    <button disabled={this.props.moving} className={this.props.exitList.includes(dir[3]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[3])}}>W</button>
                 </div>
+                <button disabled={this.props.moving} onClick={() => this.props.playerStats()}>Stats</button>
+                {this.props.moving ? <button 
+                onClick={this.props.stopTraverse}
+                >Stop Traverse</button> : <button 
+                onClick={this.props.startTraverse}
+                >Start Traverse</button>}
                 <button onClick={() => this.props.playerStats()}>Stats</button>
                 {this.props.roomData.title === "Shop" ? <button onClick={() => this.props.sellTreasure()}>Sell Treasure</button> : <button onClick={this.alert}>Sell Treasure</button>}
                 {this.props.roomData.title === "Pirate Ry's" ? 

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const url = "https://lambda-treasure-hunt.herokuapp.com/api/adv/";
 
-const authenticate = App => Login => 
+const authenticate = Main => Login => 
     class extends React.Component{
         constructor(props){
             super(props);
@@ -15,18 +15,7 @@ const authenticate = App => Login =>
         }
 
         componentDidMount(){
-            if(localStorage.getItem('userdata')){
-                const userdata = JSON.parse(localStorage.getItem('userdata'));
-                axios
-                    .get(`${url}init/`, 
-                        {token: userdata.token})
-                    .then(res => {
-                        res.data ? this.setState({ 
-                            loggedIn: true
-                        }) : localStorage.clear();
-                })  .catch(error => 
-                        console.log(error));
-            }
+            
         }
 
         handleChanges = event => {
@@ -42,19 +31,18 @@ const authenticate = App => Login =>
             {headers:{
               'Authorization': `Token ${this.state.token}`,
             }})
-              .then(res => {
-                console.log(res.data)
-                if(res.status == 200){
-                    localStorage.setItem('token', this.state.token)
-                    this.setState({
-                        loggedIn: true
-                    })
-                }
-              })
-              .catch(err => {
-                console.log(err)
-                
-              })
+            .then(res => {
+            console.log(res.data)
+            if(res.status == 200){
+                localStorage.setItem('token', this.state.token)
+                this.setState({
+                    loggedIn: true
+                })
+            }
+            })
+            .catch(err => {
+            console.log(err)
+            })
         }
 
         signOut = event => {
@@ -63,12 +51,11 @@ const authenticate = App => Login =>
             this.setState({
                 loggedIn: false
             })
-            this.props.history.push('/login');
         }
 
         render(){
-            if(this.state.loggedIn){
-                return <App 
+            if(localStorage.getItem('token')){
+                return <Main 
                 signOut = {this.signOut}
                 loggedIn = {this.state.loggedIn}
                 />
