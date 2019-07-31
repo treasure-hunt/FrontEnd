@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import './App.scss'
 import { withRouter, Switch } from "react-router-dom";
-import MapView from "./Map/MapView"
-import LoginView from "./Login/LoginView"
+// import MapView from "./Map/MapView"
+// import LoginView from "./Login/LoginView"
 import Main from "./Map/Main"
 import Login from "./Login/Login"
 import authenticate from './Login/authenticate'
