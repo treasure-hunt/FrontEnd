@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Blockchain from '../Blockchain/Blockchain.js'
 
 export class MapInfo extends Component {
     
@@ -49,6 +50,9 @@ export class MapInfo extends Component {
                         <h3>Players</h3>
                         <p>There are {this.props.players.length} players in this room</p>
                     </div>
+                </div>
+                <div>
+                    <Blockchain /> 
                 </div>
                 <div className="directionButtons">
                     <button className={this.props.exitList.includes(dir[0]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[0])}}>N</button>
