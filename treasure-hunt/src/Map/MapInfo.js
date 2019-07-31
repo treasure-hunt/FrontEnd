@@ -8,6 +8,12 @@ export class MapInfo extends Component {
     // componentWillUnmount() {
     //     clearInterval(this.interval);
     // }
+
+    alert = () => {
+        alert("You are not in the shop")
+    }
+
+
     render() {
         const dir = ["n","s","e","w"]
         return (
@@ -23,7 +29,10 @@ export class MapInfo extends Component {
                     <h3>Items</h3>
                     <p>There are {this.props.items.length} items in this room</p>
                     {this.props.items.map(item => {
-                        return <button onClick = {() => this.props.takeItem(item)}>Grab: {item}</button>  
+                        return <>
+                        <button onClick = {() => this.props.takeItem(item)}>Grab: {item}</button> 
+                         <button onClick = {() => this.props.dropItem(item)}>Drop: {item}</button>
+                        </>
                         })
                     }
                     </div>
@@ -39,6 +48,8 @@ export class MapInfo extends Component {
                     <button className={this.props.exitList.includes(dir[3]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[3])}}>W</button>
                 </div>
                 <button onClick={() => this.props.playerStats()}>Stats</button>
+                {this.props.roomData.title === "Shop" ? <button onClick={() => this.props.sellTreasure()}>Sell Treasure</button> : <button onClick={this.alert}>Sell Treasure</button>}
+                
             </div>
         )
     }
