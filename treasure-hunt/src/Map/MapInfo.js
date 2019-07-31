@@ -69,7 +69,7 @@ export class MapInfo extends Component {
                 <button onClick={() => this.props.changeName()}>Change Name</button> 
                 </form>
                 : <button onClick={this.alertName}>Change Name</button>}
-                {this.props.roomData.title === "Shrine" ? <button onClick={() => this.props.pray()}>Pray</button> : <button onClick={this.alertPray}>Pray</button>}
+                {this.props.roomData.title === "Peak of Mt. Holloway" ? <button onClick={() => this.props.pray()}>Pray</button> : <button onClick={this.alertPray}>Pray</button>}
             </div>
         )
     }
