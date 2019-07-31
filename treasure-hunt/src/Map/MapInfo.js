@@ -37,6 +37,13 @@ export class MapInfo extends Component {
                 <button className={this.props.exitList.includes('w') ? 'availableButton' : 'regularButton'} onClick={() =>{this.props.movePlayer(dir[3])}}>W</button>
                 <h1>Pathways: {this.props.exitList}</h1>
                 <h1>Cool Down: {this.props.coolDown}</h1>
+
+                {this.props.items.map(item => {
+                    return <button onClick = {() => this.props.takeItem(item)}>Grab: {item}</button>  
+                    })
+                }
+
+
         {/* <Timer
             initialTime={65000}
             direction="backward"
