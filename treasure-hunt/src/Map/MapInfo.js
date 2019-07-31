@@ -61,11 +61,7 @@ export class MapInfo extends Component {
                     <button disabled={this.props.moving} className={this.props.exitList.includes(dir[3]) ? 'button availableButton' : 'button regularButton'} onClick={() =>{this.props.movePlayer(dir[3])}}>W</button>
                 </div>
                 <button disabled={this.props.moving} onClick={() => this.props.playerStats()}>Stats</button>
-                {this.props.moving ? <button 
-                onClick={this.props.stopTraverse}
-                >Stop Traverse</button> : <button 
-                onClick={this.props.startTraverse}
-                >Start Traverse</button>}
+                {this.props.moving ? <button onClick={this.props.stopTraverse}>Stop Traverse</button> : <button onClick={this.props.startTraverse}>Start Traverse</button>}
                 <button onClick={() => this.props.playerStats()}>Stats</button>
                 {this.props.roomData.title === "Shop" ? <button onClick={() => this.props.sellTreasure()}>Sell Treasure</button> : <button onClick={this.alert}>Sell Treasure</button>}
                 {this.props.roomData.title === "Pirate Ry's" ? 
@@ -80,6 +76,7 @@ export class MapInfo extends Component {
                 </form>
                 : <button onClick={this.alertName}>Change Name</button>}
                 {this.props.roomData.title === "Peak of Mt. Holloway" ? <button onClick={() => this.props.pray()}>Pray</button> : <button onClick={this.alertPray}>Pray</button>}
+                <h2>{this.props.roomData.message}</h2>
             </div>
         )
     }
