@@ -93,7 +93,7 @@ export class MapInfo extends Component {
                 <h2>{this.props.roomData.messages}</h2>
                 <h3>{this.props.roomData.errors}</h3>
                 <h2 id="timer">Cool Down: {this.props.coolDown}</h2>
-                {this.timer}
+                <button onClick={this.props.signOut}>Log Out</button>
             </div>
         )
     }

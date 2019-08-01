@@ -34,15 +34,18 @@ const authenticate = Main => Login =>
             .then(res => {
             console.log(res.data)
             if(res.status == 200){
-                localStorage.setItem('token', this.state.token)
-                this.setState({
-                    loggedIn: true
-                })
+                setTimeout(()=>{
+                    localStorage.setItem('token', this.state.token)
+                    this.setState({
+                        loggedIn: true
+                    })
+                }, 1000)
             }
             })
             .catch(err => {
             console.log(err)
             })
+            
         }
 
         signOut = event => {
