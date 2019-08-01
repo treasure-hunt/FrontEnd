@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-
+var colorArray = ['rgb(0,206,237)','tomato', 'rgb(255,255,255)', 'grey']
 export class Canvas extends Component {
     constructor() {
         super();
@@ -34,7 +34,6 @@ export class Canvas extends Component {
     }
 
     dotSetup = () => {
-        console.log(this.props.currentRoom)
         // console.log(this.state.rooms)
         const canvas = this.refs.canvas
         const c = canvas.getContext("2d")
@@ -69,7 +68,7 @@ export class Canvas extends Component {
         let roomWidth = this.state.width / 35
         let roomX = x * roomWidth - roomWidth*42
         let roomY = y * roomHeight - roomHeight*42
-        let colorArray = ['blue', 'grey']
+       
         c.beginPath()
         c.arc(Math.floor(roomX), Math.floor(roomY), 4, 0, Math.PI * 2, false)
         if(this.props.currentRoom.room_id === id){
@@ -93,7 +92,7 @@ export class Canvas extends Component {
                 c.beginPath()
                 c.moveTo(lastX, lastY)
                 c.lineTo(lastX, lastY - shiftY)
-                c.strokeStyle = "tomato"
+                c.strokeStyle = colorArray[3]
                 c.stroke()
             }
             if(s != null){
