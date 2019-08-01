@@ -13,7 +13,6 @@ export class Canvas extends Component {
     
     componentDidMount = () => {
         this.canvasResize()
-        // this.updateDimensions()
         this.getRooms()
         this.dotSetup()    
     }
@@ -26,14 +25,6 @@ export class Canvas extends Component {
     componentWillUnmount() {
         window.removeEventListener("resize", this.canvasResize);
     }
-
-    // updateDimensions = () => {
-    //     console.log("Width is:"+this.state.width);
-    //     console.log("Height is:"+this.state.height);
-    //     let width = this.refs.canvas.width;
-    //     let height= this.refs.canvas.height;
-    //     this.setState({width:width,height:height});
-    //   }
     
     canvasResize = () => {
         this.setState({
@@ -43,15 +34,18 @@ export class Canvas extends Component {
     }
 
     dotSetup = () => {
+        console.log(this.props.currentRoom)
+        // console.log(this.state.rooms)
         const canvas = this.refs.canvas
         const c = canvas.getContext("2d")
         window.addEventListener('resize', this.canvasResize())
         this.state.rooms.forEach(room => {
             room.coords.y = 120 - room.coords.y
-            this.dotRoom(c, room.coords.x, room.coords.y)
             this.linePath(c, room.coords.x, room.coords.y, room.exits.n,room.exits.s,room.exits.w,room.exits.e)
         });
-           
+        this.state.rooms.forEach(room => {
+            this.dotRoom(c, room.coords.x, room.coords.y, room.id)
+        });
     }
 
     getRooms = () => {
@@ -70,15 +64,19 @@ export class Canvas extends Component {
         })
     }
 
-    dotRoom = (c, x, y) => {
+    dotRoom = (c, x, y, id) => {
         let roomHeight = this.state.height / 35
         let roomWidth = this.state.width / 35
         let roomX = x * roomWidth - roomWidth*42
         let roomY = y * roomHeight - roomHeight*42
-        console.log("x",Math.floor(roomX), "y",Math.floor(roomY))
-        let colorArray = ['blue', 'grey', 'green']
+        let colorArray = ['blue', 'grey']
         c.beginPath()
         c.arc(Math.floor(roomX), Math.floor(roomY), 4, 0, Math.PI * 2, false)
+        if(this.props.currentRoom.room_id === id){
+            c.fillStyle = colorArray[0]
+        }else{
+            c.fillStyle = colorArray[1]
+        }
         c.fill()
     }
 
@@ -95,6 +93,7 @@ export class Canvas extends Component {
                 c.beginPath()
                 c.moveTo(lastX, lastY)
                 c.lineTo(lastX, lastY - shiftY)
+                c.strokeStyle = "tomato"
                 c.stroke()
             }
             if(s != null){
@@ -118,8 +117,6 @@ export class Canvas extends Component {
     }
 
     render() {
-        console.log(this.props.exitList)
-        console.log(this.state.rooms)
         return (
             <div className="canvasWrapper">
                 <canvas ref="canvas" width={this.state.width} height={this.state.height} style={{ width: '70%', height: '100%' }}/>

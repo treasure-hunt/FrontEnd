@@ -12,19 +12,21 @@ export class App extends Component {
     items: [],
     moving: false,
     currentPos: [],
-
+    currentRoom: [],
     playerStatus: [],
     name: ''
   }
 
   componentDidMount = () => {
     this.playerRoom()
-    this.playerStats()
+    setTimeout(() => {
+      this.playerStats()
+    }, 1100)
     // this.playerPos()
   }
 
   playerRoom = () => {   
-    setTimeout(() => {
+    
         axios.get('https://lambda-treasure-hunt.herokuapp.com/api/adv/init/',
         {headers:{
         'Authorization': `Token ${localStorage.token}`,
@@ -36,14 +38,14 @@ export class App extends Component {
             coolDown:res.data.cooldown,
             roomData: res.data,
             players: res.data.players,
-            items: res.data.items
+            items: res.data.items,
+            currentRoom: res.data
             })
         })
         .catch(err => {
-            console.log(err)
-            
+            console.log(err.response)
         })
-    },1010)
+
   }
 
   takeItem = (item) => {    
@@ -99,7 +101,7 @@ export class App extends Component {
         })
       })
       .catch(err => {
-        console.log(err)
+        console.log(err.response)
       })
   }
 
@@ -217,8 +219,10 @@ export class App extends Component {
       <div className="Main">
        <Canvas
        exitList = {this.state.exitList}
+       currentRoom = {this.state.currentRoom}
        />
        <MapInfo
+        signOut = {this.props.signOut}
         moving = {this.state.moving}
         startTraverse = {this.startTraverse}
         stopTraverse = {this.stopTraverse}
