@@ -5,23 +5,26 @@ import Popup from "./Popup"
 export class MapInfo extends Component {
 
     state = {
-        showPopup:false
+        showPopup:false,
+        coolDown:0
     }
     componentDidMount(){
-        // this.myInterval = setInterval(() => {
-            if(this.props.coolDown > 0){
+        this.setState({
+            coolDown:this.props.coolDown
+        })
+        this.myInterval = setInterval(() => {
+            if(this.state.coolDown > 0){
             this.setState({
-                coolDown:this.props.coolDown -1
+                coolDown:this.state.coolDown -1
             })
         }
-        // }, 1000)
-        
+        }, 1000)  
     }
 
     componentDidUpdate(prevProps){
         if (this.props.coolDown !== prevProps.coolDown) {
             this.setState({
-                coolDown:this.props.coolDown -1
+                coolDown:this.props.coolDown
             })
           }
     }
@@ -94,6 +97,7 @@ export class MapInfo extends Component {
                 {/* {this.props.moving 
                     ? <button onClick={this.props.stopTraverse}>Stop Traverse</button> 
                     : <button onClick={this.props.startTraverse}>Start Traverse</button>} */}
+                
                 {/* {this.props.roomData.title === "Shop" 
                     ? <button 
                         onClick={() => this.props.sellTreasure()}>Sell Treasure</button> 
@@ -125,7 +129,7 @@ export class MapInfo extends Component {
 
                 <h2>{this.props.roomData.messages}</h2>
                 <h3>{this.props.roomData.errors}</h3>
-                <h2 id="timer">Cool Down: {this.props.coolDown}</h2>
+                <h2 id="timer">Cool Down: {this.state.coolDown}</h2>
                 <div>
                     <Blockchain /> 
                 </div>

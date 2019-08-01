@@ -226,6 +226,7 @@ export class App extends Component {
        <Canvas
        exitList = {this.state.exitList}
        currentRoom = {this.state.currentRoom}
+       currentRoomId = {this.state.currentRoom.room_id}
        />
        <MapInfo
         signOut = {this.props.signOut}
@@ -235,16 +236,16 @@ export class App extends Component {
         playerStats = {this.playerStats}
         playerStatus = {this.state.playerStatus}
         takeItem = {this.takeItem}
-        dropItem = {this.dropItem}
+        // dropItem = {this.dropItem}
         coolDown = {this.state.coolDown}
         exitList = {this.state.exitList}
         roomData = {this.state.roomData}
         movePlayer={this.movePlayer}
         players={this.state.players}
         items={this.state.items}
-        sellTreasure = {this.sellTreasure}
+        // sellTreasure = {this.sellTreasure}
         nameChange = {this.nameChange}
-        handleNameChange = {this.handleNameChange}
+        // handleNameChange = {this.handleNameChange}
         pray = {this.pray}
         showPopUp = {this.state.showPopUp}
        />
