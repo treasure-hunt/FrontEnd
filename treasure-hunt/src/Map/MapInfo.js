@@ -5,7 +5,7 @@ import Popup from "./Popup"
 export class MapInfo extends Component {
 
     state = {
-        showPopup:true
+        showPopup:false
     }
     componentDidMount(){
         // this.myInterval = setInterval(() => {
