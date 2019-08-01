@@ -13,11 +13,17 @@ export class Canvas extends Component {
     
     componentDidMount = () => {
         this.canvasResize()
-        this.getRooms()
-        this.dotSetup()    
+        this.getRooms()  
+        this.dotSetup()  
     }
     componentDidUpdate = (prevProps, prevState) => {
         if(prevState.rooms.length != this.state.rooms.length){
+            this.state.rooms.forEach(room => {
+                room.coords.y = 120 - room.coords.y
+            });
+            this.dotSetup()
+        }
+        if(prevProps.currentRoomId != this.props.currentRoomId){
             this.dotSetup()
         }
     }
@@ -54,7 +60,7 @@ export class Canvas extends Component {
         const c = canvas.getContext("2d")
         window.addEventListener('resize', this.canvasResize())
         this.state.rooms.forEach(room => {
-            room.coords.y = 120 - room.coords.y
+            // room.coords.y = 120 - room.coords.y
             this.linePath(c, room.coords.x, room.coords.y, room.exits.n,room.exits.s,room.exits.w,room.exits.e)
         });
         this.state.rooms.forEach(room => {
@@ -71,7 +77,7 @@ export class Canvas extends Component {
        
         c.beginPath()
         c.arc(Math.floor(roomX), Math.floor(roomY), 4, 0, Math.PI * 2, false)
-        if(this.props.currentRoom.room_id === id){
+        if(this.props.currentRoomId === id){
             c.fillStyle = colorArray[0]
         }else{
             c.fillStyle = colorArray[1]
