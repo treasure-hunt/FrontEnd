@@ -2,13 +2,27 @@ import React, { Component } from 'react'
 import Blockchain from '../Blockchain/Blockchain.js'
 
 export class MapInfo extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            cool:this.props.coolDown
+        }
+    }
 
-    // componentDidMount() {
-    //     this.interval = setInterval(() => this.setState({ coolDown: this.props.coolDown }), 1000);
-    // }
-    // componentWillUnmount() {
-    //     clearInterval(this.interval);
-    // }
+    componentDidMount(){
+        console.log(this.props.coolDown)
+        this.myInterval = setInterval(() => {
+            if(this.state.cool > 0 && this.state.cool){
+            this.setState(prevState =>({
+                cool:prevState.cool -1
+            }))
+        }
+        }, 1000)
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.myInterval)
+    }
 
     alert = () => {
         alert("You are not in the shop")
@@ -21,9 +35,7 @@ export class MapInfo extends Component {
     alertPray = () => {
         alert("You are not at the Shrine")
     }
-    
-
-
+   
     render() {
         const dir = ["n","s","e","w"]
         return (
@@ -40,8 +52,8 @@ export class MapInfo extends Component {
                     <p>There are {this.props.items.length} items in this room</p>
                     {this.props.items.map(item => {
                         return <>
-                        <button onClick = {() => this.props.takeItem(item)}>Grab: {item}</button> 
-                         <button onClick = {() => this.props.dropItem(item)}>Drop: {item}</button>
+                        <button disabled={this.props.moving} onClick = {() => this.props.takeItem(item)}>Grab: {item}</button> 
+                         <button disabled={this.props.moving} onClick = {() => this.props.dropItem(item)}>Drop: {item}</button>
                         </>
                         })
                     }
@@ -62,8 +74,8 @@ export class MapInfo extends Component {
                 </div>
                 <button disabled={this.props.moving} onClick={() => this.props.playerStats()}>Stats</button>
                 {this.props.moving ? <button onClick={this.props.stopTraverse}>Stop Traverse</button> : <button onClick={this.props.startTraverse}>Start Traverse</button>}
-                <button onClick={() => this.props.playerStats()}>Stats</button>
-                {this.props.roomData.title === "Shop" ? <button onClick={() => this.props.sellTreasure()}>Sell Treasure</button> : <button onClick={this.alert}>Sell Treasure</button>}
+                <button disabled={this.props.moving} onClick={() => this.props.playerStats()}>Stats</button>
+                {this.props.roomData.title === "Shop" ? <button disabled={this.props.moving} onClick={() => this.props.sellTreasure()}>Sell Treasure</button> : <button disabled={this.props.moving} onClick={this.alert}>Sell Treasure</button>}
                 {this.props.roomData.title === "Pirate Ry's" ? 
                 <form> 
                     <input
@@ -74,9 +86,12 @@ export class MapInfo extends Component {
                     />
                 <button onClick={() => this.props.changeName()}>Change Name</button> 
                 </form>
-                : <button onClick={this.alertName}>Change Name</button>}
-                {this.props.roomData.title === "Peak of Mt. Holloway" ? <button onClick={() => this.props.pray()}>Pray</button> : <button onClick={this.alertPray}>Pray</button>}
-                <h2>{this.props.roomData.message}</h2>
+                : <button disabled={this.props.moving} onClick={this.alertName}>Change Name</button>}
+                {this.props.roomData.title === "Peak of Mt. Holloway" ? <button disabled={this.props.moving} onClick={() => this.props.pray()}>Pray</button> : <button disabled={this.props.moving} onClick={this.alertPray}>Pray</button>}
+                <h2>{this.props.roomData.messages}</h2>
+                <h2>{this.props.roomData.errors}</h2>
+                <h2>Cool Down: {this.state.cool}</h2>
+                
             </div>
         )
     }

@@ -20,7 +20,7 @@ class Block {
         this.nonce++;
         this.hash = this.calculateHash()
     }
-    console.log(`Block Mined: ${this.hash}`)
+    // console.log(`Block Mined: ${this.hash}`)
 }
     
     
@@ -131,9 +131,9 @@ class BlockchainComponent extends React.Component {
     let terrellsBlock = new Blockchain()
     terrellsBlock.addBlock(new Block(new Date(), {amount : 1}))
     terrellsBlock.addBlock(new Block(new Date(), {amount : 2}))
-    console.log(JSON.stringify(terrellsBlock, null, 4));
-    console.log(`Blockchain valid? ${terrellsBlock.isChainValid()}`)
-    console.log(terrellsBlock)
+    // console.log(JSON.stringify(terrellsBlock, null, 4));
+    // console.log(`Blockchain valid? ${terrellsBlock.isChainValid()}`)
+    // console.log(terrellsBlock)
         return(
         <div>
             <h1>Blockchain</h1>
