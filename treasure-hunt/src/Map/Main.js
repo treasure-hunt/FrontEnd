@@ -30,7 +30,7 @@ export class App extends Component {
         'Authorization': `Token ${localStorage.token}`,
         }})
         .then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             this.setState({
             exitList:res.data.exits,
             coolDown:res.data.cooldown,
@@ -48,7 +48,7 @@ export class App extends Component {
 
   takeItem = (item) => {    
     axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/take/',{
-      "name": item
+      "name": item,
     },
     {headers:{
       'Authorization': `Token ${localStorage.token}`,
