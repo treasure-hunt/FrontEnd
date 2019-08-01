@@ -215,7 +215,9 @@ export class App extends Component {
     // console.log(this.state.playerStats)
     return (
       <div className="Main">
-       <Canvas/>
+       <Canvas
+       exitList = {this.state.exitList}
+       />
        <MapInfo
         moving = {this.state.moving}
         startTraverse = {this.startTraverse}
