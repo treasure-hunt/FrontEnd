@@ -4,7 +4,6 @@ class Popup extends React.Component {
     
     
   render() {  
-      console.log(this.props.playerStatus)
     return (  
     <div className='popup'>  
         <h2 onClick={() => this.props.togglePopup()}>X</h2>  

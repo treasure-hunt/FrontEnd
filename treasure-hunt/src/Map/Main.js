@@ -10,7 +10,7 @@ export class App extends Component {
     roomData: {items:[]},
     players: [],
     items: [],
-    moving: false,
+    // moving: false,
     currentPos: [],
     currentRoom: [],
     playerStatus: [],
@@ -31,7 +31,7 @@ export class App extends Component {
         'Authorization': `Token ${localStorage.token}`,
         }})
         .then(res => {
-            // console.log(res.data.cooldown)
+            // console.log(res.data)
             this.setState({
             exitList:res.data.exits,
             coolDown:res.data.cooldown,
@@ -105,41 +105,41 @@ export class App extends Component {
       })
   }
 
-  startTraverse = () => {   
+  // startTraverse = () => {   
     
-    axios.post('https://treasure-hunt-legend.herokuapp.com/autotraverse',{},
-    {headers:{
-      'Authorization': `Token ${localStorage.token}`,
-    }})
-      .then(res => {
-        console.log(res.data)
-        this.setState({
-          moving: true,
-          coolDown:res.data.cooldown,
-        })
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
+  //   axios.post('https://treasure-hunt-legend.herokuapp.com/autotraverse',{},
+  //   {headers:{
+  //     'Authorization': `Token ${localStorage.token}`,
+  //   }})
+  //     .then(res => {
+  //       console.log(res.data)
+  //       this.setState({
+  //         moving: true,
+  //         coolDown:res.data.cooldown,
+  //       })
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //     })
+  // }
 
-  stopTraverse = () => {   
+  // stopTraverse = () => {   
     
-    axios.delete('https://treasure-hunt-legend.herokuapp.com/autotraverse',
-    {headers:{
-      'Authorization': `Token ${localStorage.token}`,
-    }},{})
-      .then(res => {
-        console.log(res.data)
-        this.setState({
-          moving: false,
-          coolDown:res.data.cooldown,
-        })
-        .catch(err => {
-          console.log(err)
-        })
-      })
-  }
+  //   axios.delete('https://treasure-hunt-legend.herokuapp.com/autotraverse',
+  //   {headers:{
+  //     'Authorization': `Token ${localStorage.token}`,
+  //   }},{})
+  //     .then(res => {
+  //       console.log(res.data)
+  //       this.setState({
+  //         moving: false,
+  //         coolDown:res.data.cooldown,
+  //       })
+  //       .catch(err => {
+  //         console.log(err)
+  //       })
+  //     })
+  // }
 
   // sellTreasure = (item) => {   
     
@@ -169,6 +169,9 @@ export class App extends Component {
     }})
       .then(res => {
         console.log(res.data)
+        this.setState({
+          coolDown:res.data.cooldown,
+        })
       })
       .catch(err => {
         console.log(err)
@@ -184,6 +187,9 @@ export class App extends Component {
     }})
       .then(res => {
         console.log(res.data)
+        this.setState({
+          coolDown:res.data.cooldown,
+        })
       })
       .catch(err => {
         console.log(err)
@@ -223,9 +229,9 @@ export class App extends Component {
        />
        <MapInfo
         signOut = {this.props.signOut}
-        moving = {this.state.moving}
-        startTraverse = {this.startTraverse}
-        stopTraverse = {this.stopTraverse}
+        // moving = {this.state.moving}
+        // startTraverse = {this.startTraverse}
+        // stopTraverse = {this.stopTraverse}
         playerStats = {this.playerStats}
         playerStatus = {this.state.playerStatus}
         takeItem = {this.takeItem}

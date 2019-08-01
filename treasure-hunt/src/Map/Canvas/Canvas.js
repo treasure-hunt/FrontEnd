@@ -32,21 +32,6 @@ export class Canvas extends Component {
             height: window.innerHeight
         })
     }
-
-    dotSetup = () => {
-        // console.log(this.state.rooms)
-        const canvas = this.refs.canvas
-        const c = canvas.getContext("2d")
-        window.addEventListener('resize', this.canvasResize())
-        this.state.rooms.forEach(room => {
-            room.coords.y = 120 - room.coords.y
-            this.linePath(c, room.coords.x, room.coords.y, room.exits.n,room.exits.s,room.exits.w,room.exits.e)
-        });
-        this.state.rooms.forEach(room => {
-            this.dotRoom(c, room.coords.x, room.coords.y, room.id)
-        });
-    }
-
     getRooms = () => {
         axios.get(`https://treasure-hunt-legend.herokuapp.com/rooms`,{},
             {headers:{
@@ -62,6 +47,21 @@ export class Canvas extends Component {
             console.log(err)
         })
     }
+
+    dotSetup = () => {
+        // console.log(this.state.rooms)
+        const canvas = this.refs.canvas
+        const c = canvas.getContext("2d")
+        window.addEventListener('resize', this.canvasResize())
+        this.state.rooms.forEach(room => {
+            room.coords.y = 120 - room.coords.y
+            this.linePath(c, room.coords.x, room.coords.y, room.exits.n,room.exits.s,room.exits.w,room.exits.e)
+        });
+        this.state.rooms.forEach(room => {
+            this.dotRoom(c, room.coords.x, room.coords.y, room.id)
+        });
+    }
+
 
     dotRoom = (c, x, y, id) => {
         let roomHeight = this.state.height / 35
