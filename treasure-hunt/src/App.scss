@@ -100,7 +100,6 @@ body{
   height:100vh;
   margin-left:1rem;
   // border: 1px solid black;
-  
   .directionButtons{
     display: flex;
     justify-content: space-between;
@@ -130,4 +129,40 @@ body{
   
 }
 
+
+// POPUP
+
+.popup {  
+  position: fixed;  
+  width: 50%;  
+  height: 80%;  
+  top: 0;  
+  left: 0;  
+  right: 0;  
+  bottom: 0;  
+  margin: auto;  
+  background-color: rgba(0,0,0, 0.9);  
+
+  h2{
+    color: white;
+    cursor: pointer;
+    margin: 1rem 0 0 1rem;
+  }
+  .name{
+    display: flex;
+    justify-content: center;
+    color:white;
+  }
+  .innerPopup{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height:80%;
+
+    .stats{
+      margin-left:3rem;
+    }
+  }
+
+}  
 

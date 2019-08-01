@@ -14,15 +14,14 @@ export class App extends Component {
     currentPos: [],
     currentRoom: [],
     playerStatus: [],
-    name: ''
+    name: '',
   }
 
   componentDidMount = () => {
     this.playerRoom()
-    setTimeout(() => {
-      this.playerStats()
-    }, 1100)
-    // this.playerPos()
+    // setTimeout(() => {
+    //   this.playerStats()
+    // }, 1100)
   }
 
   playerRoom = () => {   
@@ -43,7 +42,7 @@ export class App extends Component {
             })
         })
         .catch(err => {
-            console.log(err.response)
+            console.log(err)
         })
 
   }
@@ -80,6 +79,7 @@ export class App extends Component {
           exitList:res.data.exits,
           roomData: res.data,
           coolDown:res.data.cooldown,
+          currentRoom: res.data,
         })
       })
       .catch(err => {
@@ -141,22 +141,22 @@ export class App extends Component {
       })
   }
 
-  sellTreasure = (item) => {   
+  // sellTreasure = (item) => {   
     
-    axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/sell/',{
-      "name": item,
-      "confirm": "yes"
-    },
-    {headers:{
-      'Authorization': `Token ${localStorage.token}`,
-    }})
-      .then(res => {
-        console.log(res.data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
+  //   axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/sell/',{
+  //     "name": item,
+  //     "confirm": "yes"
+  //   },
+  //   {headers:{
+  //     'Authorization': `Token ${localStorage.token}`,
+  //   }})
+  //     .then(res => {
+  //       console.log(res.data)
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //     })
+  // }
 
   nameChange = (name) => {   
     
@@ -190,28 +190,28 @@ export class App extends Component {
       })
   }
 
-  dropItem = (item) => {
-    axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/drop/',{
-      "name": item
-    },
-    {headers:{
-      'Authorization': `Token ${localStorage.token}`,
-    }})
-      .then(res => {
-        console.log(res.data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
+  // dropItem = (item) => {
+  //   axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/drop/',{
+  //     "name": item
+  //   },
+  //   {headers:{
+  //     'Authorization': `Token ${localStorage.token}`,
+  //   }})
+  //     .then(res => {
+  //       console.log(res.data)
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //     })
+  // }
 
   handleNameChange = (event) => {
     this.setState({
       name: event.target.value
     })
   }
-  
 
+ 
 
   render() {
     // console.log(this.state.playerStats)
@@ -240,6 +240,7 @@ export class App extends Component {
         nameChange = {this.nameChange}
         handleNameChange = {this.handleNameChange}
         pray = {this.pray}
+        showPopUp = {this.state.showPopUp}
        />
       </div>
     )
