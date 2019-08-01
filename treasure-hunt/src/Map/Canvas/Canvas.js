@@ -49,6 +49,7 @@ export class Canvas extends Component {
         this.state.rooms.forEach(room => {
             room.coords.y = 120 - room.coords.y
             this.dotRoom(c, room.coords.x, room.coords.y)
+            this.linePath(c, room.coords.x, room.coords.y, room.exits.n,room.exits.s,room.exits.w,room.exits.e)
         });
            
     }
@@ -74,22 +75,51 @@ export class Canvas extends Component {
         let roomWidth = this.state.width / 35
         let roomX = x * roomWidth - roomWidth*42
         let roomY = y * roomHeight - roomHeight*42
+        console.log("x",Math.floor(roomX), "y",Math.floor(roomY))
         let colorArray = ['blue', 'grey', 'green']
         c.beginPath()
-        c.arc(roomX, roomY, 4, 0, Math.PI * 2, false)
-        if(x === 59 && y === 60){
-            c.fillStyle = colorArray[0]
-        }
-        else if(1){
-            c.fillStyle = colorArray[1]
-        }
-        else if(2){
-            c.fillStyle = colorArray[2]
-        }
+        c.arc(Math.floor(roomX), Math.floor(roomY), 4, 0, Math.PI * 2, false)
         c.fill()
     }
 
+    linePath = (c, x, y, n, s, w, e) => {
+        let roomHeight = this.state.height / 35
+        let roomWidth = this.state.width / 35
+        let roomX = x * roomWidth - roomWidth*42
+        let roomY = y * roomHeight - roomHeight*42
+        let lastX = Math.floor(roomX)
+        let lastY = Math.floor(roomY)
+        let shiftX = 21
+        let shiftY = 27
+            if(n != null){
+                c.beginPath()
+                c.moveTo(lastX, lastY)
+                c.lineTo(lastX, lastY - shiftY)
+                c.stroke()
+            }
+            if(s != null){
+                c.beginPath()
+                c.moveTo(lastX, lastY)
+                c.lineTo(lastX, lastY + shiftY)
+                c.stroke()
+            }
+            if(w != null){
+                c.beginPath()
+                c.moveTo(lastX, lastY)
+                c.lineTo(lastX - shiftX, lastY)
+                c.stroke()
+            }
+            if(e != null){
+                c.beginPath()
+                c.moveTo(lastX, lastY)
+                c.lineTo(lastX + shiftX, lastY)
+                c.stroke()
+            }
+    }
+
     render() {
+        console.log(this.props.exitList)
+        console.log(this.state.rooms)
         return (
             <div className="canvasWrapper">
                 <canvas ref="canvas" width={this.state.width} height={this.state.height} style={{ width: '70%', height: '100%' }}/>
