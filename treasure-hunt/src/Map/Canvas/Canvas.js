@@ -70,13 +70,13 @@ export class Canvas extends Component {
     }
 
     dotRoom = (c, x, y) => {
-        let roomHeight = this.state.height / 120
-        let roomWidth = this.state.width / 120
-        let roomX = x * roomWidth
-        let roomY = y * roomHeight
+        let roomHeight = this.state.height / 35
+        let roomWidth = this.state.width / 35
+        let roomX = x * roomWidth - roomWidth*42
+        let roomY = y * roomHeight - roomHeight*42
         let colorArray = ['blue', 'grey', 'green']
         c.beginPath()
-        c.arc(roomX, roomY, roomWidth/2, 0, Math.PI * 2, false)
+        c.arc(roomX, roomY, 4, 0, Math.PI * 2, false)
         if(x === 59 && y === 60){
             c.fillStyle = colorArray[0]
         }

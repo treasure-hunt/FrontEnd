@@ -13,13 +13,13 @@ export class App extends Component {
     moving: false,
     currentPos: [],
 
-    playerStats: [],
+    playerStatus: [],
     name: ''
   }
 
   componentDidMount = () => {
     this.playerRoom()
-    // this.playerStats()
+    this.playerStats()
     // this.playerPos()
   }
 
@@ -30,7 +30,7 @@ export class App extends Component {
         'Authorization': `Token ${localStorage.token}`,
         }})
         .then(res => {
-            // console.log(res.data)
+            // console.log(res.data.cooldown)
             this.setState({
             exitList:res.data.exits,
             coolDown:res.data.cooldown,
@@ -57,7 +57,8 @@ export class App extends Component {
         console.log(res.data)
         this.setState({
           exitList:res.data.exits,
-          roomData: res.data
+          roomData: res.data,
+          coolDown:res.data.cooldown,
         })
       })
       .catch(err => {
@@ -75,7 +76,8 @@ export class App extends Component {
         console.log(res.data)
         this.setState({
           exitList:res.data.exits,
-          roomData: res.data
+          roomData: res.data,
+          coolDown:res.data.cooldown,
         })
       })
       .catch(err => {
@@ -92,7 +94,8 @@ export class App extends Component {
       .then(res => {
         console.log(res.data)
         this.setState({
-          playerStats: res.data
+          playerStatus: res.data,
+          coolDown:res.data.cooldown,
         })
       })
       .catch(err => {
@@ -109,7 +112,8 @@ export class App extends Component {
       .then(res => {
         console.log(res.data)
         this.setState({
-          moving: true
+          moving: true,
+          coolDown:res.data.cooldown,
         })
       })
       .catch(err => {
@@ -126,7 +130,8 @@ export class App extends Component {
       .then(res => {
         console.log(res.data)
         this.setState({
-          moving: false
+          moving: false,
+          coolDown:res.data.cooldown,
         })
         .catch(err => {
           console.log(err)
@@ -216,6 +221,7 @@ export class App extends Component {
         startTraverse = {this.startTraverse}
         stopTraverse = {this.stopTraverse}
         playerStats = {this.playerStats}
+        playerStatus = {this.state.playerStatus}
         takeItem = {this.takeItem}
         dropItem = {this.dropItem}
         coolDown = {this.state.coolDown}
