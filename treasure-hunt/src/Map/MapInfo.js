@@ -2,22 +2,25 @@ import React, { Component } from 'react'
 import Blockchain from '../Blockchain/Blockchain.js'
 
 export class MapInfo extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            cool:this.props.coolDown
-        }
-    }
 
     componentDidMount(){
-        console.log(this.props.coolDown)
-        this.myInterval = setInterval(() => {
-            if(this.state.cool > 0 && this.state.cool){
-            this.setState(prevState =>({
-                cool:prevState.cool -1
-            }))
+        // this.myInterval = setInterval(() => {
+            if(this.props.coolDown > 0){
+            this.setState({
+                coolDown:this.props.coolDown -1
+            })
         }
-        }, 1000)
+        // }, 1000)
+        
+    }
+
+    componentDidUpdate(prevProps){
+        
+        if (this.props.coolDown !== prevProps.coolDown) {
+            this.setState({
+                coolDown:this.props.coolDown -1
+            })
+          }
     }
 
     componentWillUnmount(){
@@ -74,7 +77,6 @@ export class MapInfo extends Component {
                 </div>
                 <button disabled={this.props.moving} onClick={() => this.props.playerStats()}>Stats</button>
                 {this.props.moving ? <button onClick={this.props.stopTraverse}>Stop Traverse</button> : <button onClick={this.props.startTraverse}>Start Traverse</button>}
-                <button disabled={this.props.moving} onClick={() => this.props.playerStats()}>Stats</button>
                 {this.props.roomData.title === "Shop" ? <button disabled={this.props.moving} onClick={() => this.props.sellTreasure()}>Sell Treasure</button> : <button disabled={this.props.moving} onClick={this.alert}>Sell Treasure</button>}
                 {this.props.roomData.title === "Pirate Ry's" ? 
                 <form> 
@@ -89,9 +91,9 @@ export class MapInfo extends Component {
                 : <button disabled={this.props.moving} onClick={this.alertName}>Change Name</button>}
                 {this.props.roomData.title === "Peak of Mt. Holloway" ? <button disabled={this.props.moving} onClick={() => this.props.pray()}>Pray</button> : <button disabled={this.props.moving} onClick={this.alertPray}>Pray</button>}
                 <h2>{this.props.roomData.messages}</h2>
-                <h2>{this.props.roomData.errors}</h2>
-                <h2>Cool Down: {this.state.cool}</h2>
-                
+                <h3>{this.props.roomData.errors}</h3>
+                <h2 id="timer">Cool Down: {this.props.coolDown}</h2>
+                {this.timer}
             </div>
         )
     }
