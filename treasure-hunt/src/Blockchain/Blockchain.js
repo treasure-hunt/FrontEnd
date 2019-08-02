@@ -1,91 +1,38 @@
 import React from 'react';
 import SHA256 from 'crypto-js/sha256'
 import axios from 'axios'
-class Transaction {
-
-    constructor(from,to,amount){
-        this.from = from
-        this.to = to
-        this.amount = amount
-    }
-}
-
-class Block {
-    calculateHash(){
-        return SHA256(this.previousHash + this.timestamp + JSON.stringify(this.data)+ this.nonce).toString();
-    }
-
-    mineBlock = (difficulty) => {
-        while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join('0')){
-        this.nonce++;
-        this.hash = this.calculateHash()
-    }
-    // console.log(`Block Mined: ${this.hash}`)
-}
-    
-    
-    constructor(timestamp, data, previousHash = ''){
-        this.timestamp = timestamp
-        this.previousHash = previousHash
-        this.data = data
-
-        this.hash = this.calculateHash();
-        this.nonce = 0
-    }
-}
-
-class Blockchain {
-    //Creates genesis block
-    createGenesisBlock(){
-        return new Block(new Date(), "Genesis block", "0")
-    }
-
-    //Gets latest Block of the chain
-    getLatestBlock(){
-        return this.chain[this.chain.length - 1];
-    }
-
-    //Adds new block to chain
-    addBlock(newBlock){
-        // The new block needs to point to the hash of the latest block on the chain.
-        newBlock.previousHash = this.getLatestBlock().hash
-        // Calculate the hash of the new block
-        newBlock.hash = newBlock.calculateHash();
-        
-        newBlock.mineBlock(this.difficulty)
-        // Now the block is ready and can be added to chain!
-        this.chain.push(newBlock)
-    }
-
-    isChainValid(){
-        for (let i = 1; i < this.chain.length; i++){
-            const currentBlock = this.chain[i];
-            const previousBlock = this.chain[i - 1];
-
-        if(currentBlock.hash !== currentBlock.calculateHash()){
-            return false
-        }
-        if (currentBlock.previousHash !== previousBlock.hash){
-            return false;
-        }
-    }
-        return true
-}
 
 
-    constructor() {
-        this.chain = [this.createGenesisBlock()];
-        this.difficulty = 3
-    }
-}
 
 
 
 class BlockchainComponent extends React.Component {
     state = {
         proof: 0,
-        difficulty: 0,
+        difficulty: 2,
+        coinsMined: 0
+    }
+    
+    proofOfWork = (lastProof) => {
+        let proof = this.state.proof
 
+        do{
+            proof += 1
+            console.log(`Proof found: ${proof}`)
+        }
+        while (this.validProof(lastProof, proof) === false)
+        
+        return proof
+    } 
+    
+    validProof = (lastProof, proof) => {
+        let guess = encodeURI(`${lastProof}${proof}`)
+        let guess_hash = `${SHA256(guess)}`
+        let leadingZeros = guess_hash
+        console.log(guess_hash)
+        console.log(leadingZeros.padStart(this.state.difficulty + 1, '0'))
+
+        return guess_hash.substring(0, this.state.difficulty) === `${leadingZeros.padStart(this.state.difficulty + 1, '0')}`
     }
 
     getProof = () => {
@@ -107,17 +54,22 @@ class BlockchainComponent extends React.Component {
     }
 
     mineCoin = () => {
-        let blockchain = new Blockchain();
-        blockchain.difficulty = this.state.difficulty;
-        console.log(blockchain)
+        let lastProof = this.state.proof
+        let newProof = this.proofOfWork(lastProof)
+
         axios.post('https://lambda-treasure-hunt.herokuapp.com/api/bc/mine/',
         {
-            "proof": `${blockchain.chain.nonce}`
+            "proof": newProof
         },
-        {headers:{
+        {headers:
+            {
           'Authorization': `Token ${localStorage.token}`,
-        }})
+        }
+    })
           .then(res => {
+            if(res.data.message === 'New Block Forged'){
+                console.log('Ya got one')
+            }
             console.log(res.data)
             
           })
@@ -128,17 +80,11 @@ class BlockchainComponent extends React.Component {
 
 
     render(){
-    let terrellsBlock = new Blockchain()
-    terrellsBlock.addBlock(new Block(new Date(), {amount : 1}))
-    terrellsBlock.addBlock(new Block(new Date(), {amount : 2}))
-    // console.log(JSON.stringify(terrellsBlock, null, 4));
-    // console.log(`Blockchain valid? ${terrellsBlock.isChainValid()}`)
-    // console.log(terrellsBlock)
         return(
         <div>
             <h1>Blockchain</h1>
             <button onClick={this.getProof}>Get Proof</button>
-            <button onClick={this.mineCoin}>MINEEE</button>
+            {/* <button onClick={this.mineCoin}>MINEEE</button> */}
         </div>
     )
         }

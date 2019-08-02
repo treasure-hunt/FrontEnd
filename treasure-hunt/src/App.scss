@@ -93,6 +93,87 @@ body{
   }
 }
 
+//ROOM DATA TT Styling
+.roomAndCoords{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  font-family: 'Saira Stencil One';
+  font-size: 20px;
+}
+
+.title-description {
+  h3 {
+    font-size: 30px;
+    font-family: 'Saira Stencil One';
+    margin: 0;
+  }
+  p{
+    font-family: 'Roboto';
+    margin: 10px;
+  }
+}
+
+.game-buttons{
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+
+  button{
+      width: 35%;
+      height: 35px;
+      font-size: 15px;
+       background-color: #FF6347;
+       font-family: 'Saira Stencil One';
+       border-radius: 5px;
+      cursor: pointer;
+
+      &:focus {
+        outline:0;
+      }
+      &:hover{
+        background-color: white;
+      }
+  }
+}
+
+.logout{
+  width: 150px;
+  margin: 0 auto;
+
+  button{
+    width: 150px;
+    height: 35px;
+    font-size: 20px;
+    background-color: #FF6347;
+    font-family: 'Saira Stencil One';
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 25px;
+  }
+}
+
+.player-message{
+    font-family: 'Roboto';
+    padding: 20px;
+}
+
+.grab-button{
+  margin: 10px;
+    width: 70%;
+    height: 35px;
+    font-size: 18px;
+    background-color: #FF6347;
+    font-family: 'Saira Stencil One';
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#timer{
+  font-family: 'Saira Stencil One';
+}
+
 // MAPINFO 
 
 .mapInfoWrapper{
@@ -109,6 +190,8 @@ body{
       height: 50px;
       font-size: 1.8rem;
       font-weight: bolder;
+      font-family: 'Saira Stencil One';
+      border-radius: 5px;
       cursor: pointer;
       &:focus {
         outline:0;
@@ -119,7 +202,7 @@ body{
     }
     
     .availableButton {
-      background-color: rgb(255,71,71);
+      background-color:#FF6347;
     }
     
     .regularButton {
