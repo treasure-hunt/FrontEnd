@@ -6,7 +6,7 @@ export class MapInfo extends Component {
 
     state = {
         showPopup:false,
-        coolDown:0
+        coolDown: 0
     }
     componentDidMount(){
         this.setState({
@@ -24,14 +24,14 @@ export class MapInfo extends Component {
     componentDidUpdate(prevProps){
         if (this.props.coolDown !== prevProps.coolDown) {
             this.setState({
-                coolDown:this.props.coolDown
+                coolDown: this.props.coolDown
             })
           }
     }
 
-    componentWillUnmount(){
-        clearInterval(this.myInterval)
-    }
+    // componentWillUnmount(){
+    //     clearInterval(this.myInterval)
+    // }
 
     togglePopup = () => {  
         this.setState({  
@@ -48,7 +48,7 @@ export class MapInfo extends Component {
         const dir = ["n","s","e","w"]
         return (
             <div className="mapInfoWrapper">
-                <div>
+                <div className='roomAndCoords'>
                     <h1>Room {this.props.roomData.room_id}</h1>
                     <h1>{this.props.roomData.coordinates}</h1>
                 </div>
@@ -59,7 +59,7 @@ export class MapInfo extends Component {
                     <h3>Items</h3>
                     <p>There are {this.props.items.length} items in this room</p>
                     {this.props.items.map(item => {
-                        return <button onClick = {() => this.props.takeItem(item)}>Grab: {item}</button> 
+                        return <button className='grab-button' onClick = {() => this.props.takeItem(item)}>Grab: {item}</button> 
                     })}
                     {/* <button onClick = {() => this.props.dropItem(item)}>Drop: {item}</button> */}
                     </div>
@@ -69,21 +69,7 @@ export class MapInfo extends Component {
                     </div>
                 </div>
                 
-                <div className="directionButtons">
-                    <button className={this.props.exitList.includes(dir[0]) 
-                        ? 'button availableButton' : 'button regularButton'} 
-                        onClick={() =>{this.props.movePlayer(dir[0])}}>N</button>
-                    <button className={this.props.exitList.includes(dir[1]) 
-                        ? 'button availableButton' : 'button regularButton'} 
-                        onClick={() =>{this.props.movePlayer(dir[1])}}>S</button>
-                    <button className={this.props.exitList.includes(dir[2]) 
-                        ? 'button availableButton' : 'button regularButton'} 
-                        onClick={() =>{this.props.movePlayer(dir[2])}}>E</button>
-                    <button className={this.props.exitList.includes(dir[3]) 
-                        ? 'button availableButton' : 'button regularButton'} 
-                        onClick={() =>{this.props.movePlayer(dir[3])}}>W</button>
-                </div>
-            
+                <div className='game-buttons'>
                     <button onClick={() => this.popUpClick()}>Stats</button>
                 
                     {this.state.showPopup ?  
@@ -96,13 +82,13 @@ export class MapInfo extends Component {
 
                 {/* {this.props.moving 
                     ? <button onClick={this.props.stopTraverse}>Stop Traverse</button> 
-                    : <button onClick={this.props.startTraverse}>Start Traverse</button>} */}
+                : <button onClick={this.props.startTraverse}>Start Traverse</button>} */}
                 
                 {/* {this.props.roomData.title === "Shop" 
                     ? <button 
-                        onClick={() => this.props.sellTreasure()}>Sell Treasure</button> 
+                    onClick={() => this.props.sellTreasure()}>Sell Treasure</button> 
                     : <button 
-                        onClick={this.alert}>Sell Treasure</button>} */}
+                onClick={this.alert}>Sell Treasure</button>} */}
                 {this.props.roomData.title === "Pirate Ry's" ? 
                 <form> 
                     <input
@@ -118,6 +104,7 @@ export class MapInfo extends Component {
                 this.props.roomData.title === "Linh's Shrine" 
                 ? <button onClick={() => this.props.pray()}>Pray</button> 
                 : <button onClick={this.alertPray}>Pray</button>}
+                </div>
                 
                 
                 {/* Sell Treasure needs work
@@ -125,15 +112,32 @@ export class MapInfo extends Component {
                 {this.props.playerStatus && this.props.playerStatus.inventory.map(item => {
                     return <button onClick={()=> this.props.sellTreasure(item)}>Sell {item}</button>
                 })
-                } */}
+            } */}
 
-                <h2>{this.props.roomData.messages}</h2>
+                <h3 className='player-message'>{this.props.roomData.messages}</h3>
                 <h3>{this.props.roomData.errors}</h3>
                 <h2 id="timer">Cool Down: {this.state.coolDown}</h2>
-                <div>
-                    <Blockchain /> 
+                
+                <div className="directionButtons">
+                    <button className={this.props.exitList.includes(dir[0]) 
+                        ? 'button availableButton' : 'button regularButton'} 
+                        onClick={() =>{this.props.movePlayer(dir[0])}}>N</button>
+                    <button className={this.props.exitList.includes(dir[1]) 
+                        ? 'button availableButton' : 'button regularButton'} 
+                        onClick={() =>{this.props.movePlayer(dir[1])}}>S</button>
+                    <button className={this.props.exitList.includes(dir[2]) 
+                        ? 'button availableButton' : 'button regularButton'} 
+                        onClick={() =>{this.props.movePlayer(dir[2])}}>E</button>
+                    <button className={this.props.exitList.includes(dir[3]) 
+                        ? 'button availableButton' : 'button regularButton'} 
+                        onClick={() =>{this.props.movePlayer(dir[3])}}>W</button>
                 </div>
-                <button onClick={this.props.signOut}>Log Out</button>
+                {/* <div>
+                    <Blockchain /> 
+                </div> */}
+                <div className='logout'>
+                    <button onClick={this.props.signOut}>Log Out</button>
+                </div>
             </div>
         )
     }
