@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Blockchain from '../Blockchain/Blockchain.js'
+import Title from './Title'
 import Popup from "./Popup"
 
 export class MapInfo extends Component {
@@ -53,6 +54,7 @@ export class MapInfo extends Component {
         const dir = ["n","s","e","w"]
         return (
             <div className="mapInfoWrapper">
+                <Title />
                 <div className='roomAndCoords'>
                     <h1>Room {this.props.roomData.room_id}</h1>
                     <h1>{this.props.roomData.coordinates}</h1>

@@ -85,7 +85,7 @@ body{
 .canvasWrapper{
   
   canvas{
-    border: 1px solid black; 
+    border-left: 2px dashed black; 
     position: fixed;
     top:0;
     right:0;
@@ -94,6 +94,21 @@ body{
 }
 
 //ROOM DATA TT Styling
+.game-title{
+  font-family: 'Saira Stencil One';
+  text-align: center;
+  font-size: 1.6rem;
+  animation: colorFlick 1s infinite;
+}
+
+@keyframes colorFlick{
+  0% { 
+    color: black
+  }
+  35% { 
+    color: #FF6347;
+   }
+}
 .roomAndCoords{
   display: flex;
   justify-content: space-between;
@@ -225,6 +240,8 @@ body{
   bottom: 0;  
   margin: auto;  
   background-color: rgba(0,0,0, 0.9);  
+  font-family: 'Saira Stencil One';
+  border-radius: 20px;
 
   h2{
     color: white;
@@ -235,12 +252,14 @@ body{
     display: flex;
     justify-content: center;
     color:white;
+    margin-bottom: 0;
+    font-size: 2.2rem;
   }
   .innerPopup{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    height:80%;
+    height:60%;
 
     .stats{
       margin-left:3rem;
