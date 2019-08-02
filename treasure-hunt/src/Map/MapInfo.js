@@ -13,9 +13,14 @@ export class MapInfo extends Component {
             coolDown:this.props.coolDown
         })
         this.myInterval = setInterval(() => {
-            if(this.state.coolDown > 0){
+            if(this.state.coolDown > 0.5 ){
             this.setState({
-                coolDown:this.state.coolDown -1
+                coolDown:this.state.coolDown - 1
+            })
+        } 
+        if(this.state.coolDown === 0.5){
+            this.setState({
+                coolDown:this.state.coolDown - .5
             })
         }
         }, 1000)  
@@ -100,7 +105,7 @@ export class MapInfo extends Component {
                 <button onClick={() => this.props.nameChange()}>Change Name</button> 
                 </form>
                 : <button onClick={this.alertName}>Change Name</button>}
-                {this.props.roomData.title === "Peak of Mt. Holloway" || 
+                {this.props.roomData.title === "The Peak of Mt. Holloway" || 
                 this.props.roomData.title === "Linh's Shrine" 
                 ? <button onClick={() => this.props.pray()}>Pray</button> 
                 : <button onClick={this.alertPray}>Pray</button>}
