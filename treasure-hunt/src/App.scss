@@ -99,6 +99,9 @@ body{
   text-align: center;
   font-size: 1.6rem;
   animation: colorFlick 1s infinite;
+  h1{
+    margin: 20px 0 0 0;
+  }
 }
 
 @keyframes colorFlick{
