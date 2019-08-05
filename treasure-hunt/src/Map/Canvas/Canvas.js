@@ -60,7 +60,6 @@ export class Canvas extends Component {
         const c = canvas.getContext("2d")
         window.addEventListener('resize', this.canvasResize())
         this.state.rooms.forEach(room => {
-            // room.coords.y = 120 - room.coords.y
             this.linePath(c, room.coords.x, room.coords.y, room.exits.n,room.exits.s,room.exits.w,room.exits.e)
         });
         this.state.rooms.forEach(room => {
