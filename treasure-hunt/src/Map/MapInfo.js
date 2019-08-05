@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Blockchain from '../Blockchain/Blockchain.js'
 import Title from './Title'
 import Popup from "./Popup"
 
@@ -10,8 +9,9 @@ export class MapInfo extends Component {
         coolDown: 0
     }
     componentDidMount(){
+        console.log(this.props.roomData)
         this.setState({
-            coolDown:this.props.coolDown
+            coolDown:this.props.roomData.cooldown
         })
         this.myInterval = setInterval(() => {
             if(this.state.coolDown > 0.5 ){
@@ -28,16 +28,12 @@ export class MapInfo extends Component {
     }
 
     componentDidUpdate(prevProps){
-        if (this.props.coolDown !== prevProps.coolDown) {
+        if (this.props.roomData.cooldown !== prevProps.roomData.cooldown) {
             this.setState({
-                coolDown: this.props.coolDown
+                coolDown: this.props.roomData.cooldown
             })
           }
     }
-
-    // componentWillUnmount(){
-    //     clearInterval(this.myInterval)
-    // }
 
     togglePopup = () => {  
         this.setState({  
@@ -86,26 +82,24 @@ export class MapInfo extends Component {
                         />  
                         : null  
                     }  
-
-                {/* {this.props.moving 
-                    ? <button onClick={this.props.stopTraverse}>Stop Traverse</button> 
-                : <button onClick={this.props.startTraverse}>Start Traverse</button>} */}
                 
                 {/* {this.props.roomData.title === "Shop" 
                     ? <button 
                     onClick={() => this.props.sellTreasure()}>Sell Treasure</button> 
                     : <button 
-                onClick={this.alert}>Sell Treasure</button>} */}
+                    onClick={this.alert}>Sell Treasure</button>} */}
                 {this.props.roomData.title === "Pirate Ry's" ? 
-                <form> 
-                    <input
-                    type = "text"
-                    name = "name"
-                    onChange = {this.props.handleChanges}
-                    placeholder = "Enter a Name..."
-                    />
-                <button onClick={() => this.props.nameChange()}>Change Name</button> 
-                </form>
+                <div>
+                    <form> 
+                        <input
+                        type = "text"
+                        name = "name"
+                        onChange = {this.props.handleChanges}
+                        placeholder = "Enter a Name..."
+                        />
+                    <button onClick={() => this.props.nameChange()}>Change Name</button> 
+                    </form>
+                </div>
                 : <button onClick={this.alertName}>Change Name</button>}
                 {this.props.roomData.title === "The Peak of Mt. Holloway" || 
                 this.props.roomData.title === "Linh's Shrine" 
@@ -126,22 +120,19 @@ export class MapInfo extends Component {
                 <h2 id="timer">Cool Down: {this.state.coolDown}</h2>
                 
                 <div className="directionButtons">
-                    <button className={this.props.exitList.includes(dir[0]) 
+                    <button className={this.props.exits.includes(dir[0]) 
                         ? 'button availableButton' : 'button regularButton'} 
                         onClick={() =>{this.props.movePlayer(dir[0])}}>N</button>
-                    <button className={this.props.exitList.includes(dir[1]) 
+                    <button className={this.props.exits.includes(dir[1]) 
                         ? 'button availableButton' : 'button regularButton'} 
                         onClick={() =>{this.props.movePlayer(dir[1])}}>S</button>
-                    <button className={this.props.exitList.includes(dir[2]) 
+                    <button className={this.props.exits.includes(dir[2]) 
                         ? 'button availableButton' : 'button regularButton'} 
                         onClick={() =>{this.props.movePlayer(dir[2])}}>E</button>
-                    <button className={this.props.exitList.includes(dir[3]) 
+                    <button className={this.props.exits.includes(dir[3]) 
                         ? 'button availableButton' : 'button regularButton'} 
                         onClick={() =>{this.props.movePlayer(dir[3])}}>W</button>
                 </div>
-                {/* <div>
-                    <Blockchain /> 
-                </div> */}
                 <div className='logout'>
                     <button onClick={this.props.signOut}>Log Out</button>
                 </div>

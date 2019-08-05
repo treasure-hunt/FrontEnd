@@ -5,23 +5,17 @@ import axios from 'axios'
 
 export class App extends Component {
   state = {
-    exitList:[],
-    coolDown:0,
-    roomData: {items:[]},
+    roomData: [],
     players: [],
+    exits:[],
     items: [],
-    // moving: false,
-    currentPos: [],
     currentRoom: [],
     playerStatus: [],
-    name: '',
+    // name: '',
   }
 
   componentDidMount = () => {
     this.playerRoom()
-    // setTimeout(() => {
-    //   this.playerStats()
-    // }, 1100)
   }
 
   playerRoom = () => {   
@@ -33,8 +27,7 @@ export class App extends Component {
         .then(res => {
             // console.log(res.data)
             this.setState({
-            exitList:res.data.exits,
-            coolDown:res.data.cooldown,
+            exits:res.data.exits,
             roomData: res.data,
             players: res.data.players,
             items: res.data.items,
@@ -57,9 +50,8 @@ export class App extends Component {
       .then(res => {
         console.log(res.data)
         this.setState({
-          exitList:res.data.exits,
+          exits:res.data.exits,
           roomData: res.data,
-          coolDown:res.data.cooldown,
         })
       })
       .catch(err => {
@@ -76,9 +68,8 @@ export class App extends Component {
       .then(res => {
         console.log(res.data)
         this.setState({
-          exitList:res.data.exits,
+          exits:res.data.exits,
           roomData: res.data,
-          coolDown:res.data.cooldown,
           currentRoom: res.data,
         })
       })
@@ -96,50 +87,14 @@ export class App extends Component {
       .then(res => {
         console.log(res.data)
         this.setState({
-          playerStatus: res.data,
-          coolDown:res.data.cooldown,
+          roomData: res.data,
+          // name:res.data.name
         })
       })
       .catch(err => {
         console.log(err.response)
       })
   }
-
-  // startTraverse = () => {   
-    
-  //   axios.post('https://treasure-hunt-legend.herokuapp.com/autotraverse',{},
-  //   {headers:{
-  //     'Authorization': `Token ${localStorage.token}`,
-  //   }})
-  //     .then(res => {
-  //       console.log(res.data)
-  //       this.setState({
-  //         moving: true,
-  //         coolDown:res.data.cooldown,
-  //       })
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //     })
-  // }
-
-  // stopTraverse = () => {   
-    
-  //   axios.delete('https://treasure-hunt-legend.herokuapp.com/autotraverse',
-  //   {headers:{
-  //     'Authorization': `Token ${localStorage.token}`,
-  //   }},{})
-  //     .then(res => {
-  //       console.log(res.data)
-  //       this.setState({
-  //         moving: false,
-  //         coolDown:res.data.cooldown,
-  //       })
-  //       .catch(err => {
-  //         console.log(err)
-  //       })
-  //     })
-  // }
 
   // sellTreasure = (item) => {   
     
@@ -158,8 +113,10 @@ export class App extends Component {
   //     })
   // }
 
+
+  // Needs Work
   nameChange = (name) => {   
-    
+    console.log(name)
     axios.post('https://lambda-treasure-hunt.herokuapp.com/api/adv/change_name/',{
       "name": name,
       "confirm": "aye"
@@ -170,7 +127,7 @@ export class App extends Component {
       .then(res => {
         console.log(res.data)
         this.setState({
-          coolDown:res.data.cooldown,
+          roomData: res.data,
         })
       })
       .catch(err => {
@@ -188,7 +145,7 @@ export class App extends Component {
       .then(res => {
         console.log(res.data)
         this.setState({
-          coolDown:res.data.cooldown,
+          roomData: res.data,
         })
       })
       .catch(err => {
@@ -224,30 +181,26 @@ export class App extends Component {
     return (
       <div className="Main">
        <Canvas
-       exitList = {this.state.exitList}
        currentRoom = {this.state.currentRoom}
        currentRoomId = {this.state.currentRoom.room_id}
        />
        <MapInfo
         signOut = {this.props.signOut}
-        // moving = {this.state.moving}
-        // startTraverse = {this.startTraverse}
-        // stopTraverse = {this.stopTraverse}
-        playerStats = {this.playerStats}
-        playerStatus = {this.state.playerStatus}
+        playerStats = {this.playerStats} //function
+        playerStatus = {this.state.playerStatus} // value from stats function
         takeItem = {this.takeItem}
-        // dropItem = {this.dropItem}
-        coolDown = {this.state.coolDown}
-        exitList = {this.state.exitList}
+        exits = {this.state.exits}
         roomData = {this.state.roomData}
         movePlayer={this.movePlayer}
         players={this.state.players}
         items={this.state.items}
-        // sellTreasure = {this.sellTreasure}
         nameChange = {this.nameChange}
-        // handleNameChange = {this.handleNameChange}
+        name = {this.state.name}
         pray = {this.pray}
         showPopUp = {this.state.showPopUp}
+        // dropItem = {this.dropItem}
+        // sellTreasure = {this.sellTreasure}
+        // handleNameChange = {this.handleNameChange}
        />
       </div>
     )
