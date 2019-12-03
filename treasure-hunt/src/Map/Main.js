@@ -3,6 +3,36 @@ import Canvas from "./Canvas/Canvas"
 import MapInfo from "./MapInfo"
 import axios from 'axios'
 
+
+// roomData={
+//   cooldown: 15
+//   coordinates: "(68,50)"
+//   description: "You are standing on grass and surrounded by a dense mist. You can barely make out the exits in any direction."
+//   elevation: 0
+//   errors: []
+//   exits: (3) ["n", "s", "e"]
+//   items: (2) ["amazing treasure", "amazing treasure"]
+//   messages: (2) ["You have walked north.", "Wise Explorer: -50% CD"]
+//   players: ["yung ill"]
+//   room_id: 352
+//   terrain: "NORMAL"
+//   title: "A misty room"
+// }
+
+// playerStatus = {
+//   cooldown: 1
+//   encumbrance: 9
+//   errors: []
+//   gold: 8800
+//   has_mined: true
+//   inventory: (5) ["amazing treasure", "amazing treasure", "amazing treasure", "flower", "flower"]
+//   messages: []
+//   name: "G.O.A.T."
+//   speed: 10
+//   status: []
+//   strength: 10
+// }
+
 export class App extends Component {
   state = {
     roomData: [],
@@ -11,11 +41,13 @@ export class App extends Component {
     items: [],
     currentRoom: [],
     playerStatus: [],
-    // name: '',
   }
 
   componentDidMount = () => {
     this.playerRoom()
+    // setTimeout(() => {
+    //   this.playerStats()
+    // }, 1100)
   }
 
   playerRoom = () => {   
@@ -52,6 +84,7 @@ export class App extends Component {
         this.setState({
           exits:res.data.exits,
           roomData: res.data,
+          items: res.data.items,
         })
       })
       .catch(err => {
@@ -71,6 +104,7 @@ export class App extends Component {
           exits:res.data.exits,
           roomData: res.data,
           currentRoom: res.data,
+          items: res.data.items,
         })
       })
       .catch(err => {
@@ -87,8 +121,7 @@ export class App extends Component {
       .then(res => {
         console.log(res.data)
         this.setState({
-          roomData: res.data,
-          // name:res.data.name
+          playerStatus:this.state.playerStatus
         })
       })
       .catch(err => {
