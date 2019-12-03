@@ -9,7 +9,7 @@ const authenticate = Main => Login =>
             super(props);
             this.state = ({
                 name: '',
-                token: '',
+                token: 'aad690ee0a6c7fbea1203da3a9b4c72d7aeb3c44',
                 loggedIn: false
             })
         }
