@@ -3,9 +3,9 @@ import axios from 'axios';
 
 const url = "https://lambda-treasure-hunt.herokuapp.com/api/adv/";
 
-const authenticate = Main => Login => 
-    class extends React.Component{
-        constructor(props){
+const authenticate = Main => Login =>
+    class extends React.Component {
+        constructor(props) {
             super(props);
             this.state = ({
                 name: '',
@@ -14,8 +14,8 @@ const authenticate = Main => Login =>
             })
         }
 
-        componentDidMount(){
-            
+        componentDidMount() {
+
         }
 
         handleChanges = event => {
@@ -28,24 +28,27 @@ const authenticate = Main => Login =>
         signIn = event => {
             event.persist();
             return axios.get(`${url}init/`,
-            {headers:{
-              'Authorization': `Token ${this.state.token}`,
-            }})
-            .then(res => {
-            console.log(res.data)
-            if(res.status == 200){
-                setTimeout(()=>{
-                    localStorage.setItem('token', this.state.token)
-                    this.setState({
-                        loggedIn: true
-                    })
-                }, 1000)
-            }
-            })
-            .catch(err => {
-            console.log(err)
-            })
-            
+                {
+                    headers: {
+                        'Authorization': `Token ${this.state.token}`,
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    if (res.status === 200) {
+                        setTimeout(() => {
+                            localStorage.setItem('token', this.state.token)
+                            this.setState({
+                                loggedIn: true
+                            })
+                        }, 1000)
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+
         }
 
         signOut = event => {
@@ -56,18 +59,18 @@ const authenticate = Main => Login =>
             })
         }
 
-        render(){
-            if(localStorage.getItem('token')){
-                return <Main 
-                signOut = {this.signOut}
-                loggedIn = {this.state.loggedIn}
+        render() {
+            if (localStorage.getItem('token')) {
+                return <Main
+                    signOut={this.signOut}
+                    loggedIn={this.state.loggedIn}
                 />
             } else {
-                return <Login 
-                handleChanges = {this.handleChanges}
-                signIn = {this.signIn}
-                name = {this.state.name}
-                token = {this.state.token}
+                return <Login
+                    handleChanges={this.handleChanges}
+                    signIn={this.signIn}
+                    name={this.state.name}
+                    token={this.state.token}
                 />
             }
         }
